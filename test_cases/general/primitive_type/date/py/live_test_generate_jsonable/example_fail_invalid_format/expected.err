@@ -1,0 +1,2 @@
+#/some_date: Expected to strptime %Y/%m/%d, but got: 2016!07!03
+#/formatless_date: Expected to strptime %Y-%m-%d, but got: 2016!07!03

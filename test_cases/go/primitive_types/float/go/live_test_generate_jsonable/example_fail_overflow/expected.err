@@ -1,0 +1,1 @@
+failed to read the file /home/marko/workspace/pqryopen/mapry/test_cases/go/primitive_types/float/example_fail_overflow.json: json: cannot unmarshal number 1.797693134862315708145274237317043567981e+309 into Go value of type float64

@@ -1,0 +1,4 @@
+{
+  "some_str": "somestring",
+  "unconstrained_str": "!@#$ some \u00fcnc\u00f6nstr\u00e4in\u00e9d strng"
+}

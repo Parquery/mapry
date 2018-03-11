@@ -1,0 +1,10 @@
+#!/usr/bin/env python3
+
+"""Generate the code based on a mapry schema."""
+
+import sys
+
+import mapry.main
+
+if __name__ == "__main__":
+    sys.exit(mapry.main.main())

@@ -1,0 +1,36 @@
+{
+  "maintainer": "Alice",
+  "persons": {
+    "Alice": {
+      "full_name": "Alice Doe",
+      "address": {
+        "time_zone": "Europe/Zurich",
+        "text": "Technoparkstr. 1, 8005 Zurich, Switzerland"
+      },
+      "picture": "/images/alice.jpg",
+      "birthday": "2016-07-03",
+      "last_modified": "2019-05-27T12:13:14Z",
+      "contact_period": "P2D",
+      "friends": {
+        "bobby": "Bob"
+      },
+      "active": true,
+      "height": 170,
+      "fee": 3.2
+    },
+    "Bob": {
+      "full_name": "Bob Doe",
+      "address": {
+        "time_zone": "Europe/Zurich",
+        "text": "Technoparkstr. 1, 8005 Zurich, Switzerland"
+      },
+      "birthday": "2016-07-06",
+      "last_modified": "2019-05-26T22:23:24Z",
+      "contact_period": "PT3H",
+      "friends": {},
+      "active": false,
+      "height": 183,
+      "fee": 10.4
+    }
+  }
+}

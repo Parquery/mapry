@@ -1,0 +1,8 @@
+{
+  "some_embed": {
+    "reference_to_empty": "an-instance-of-empty"
+  },
+  "empties": {
+    "an-instance-of-empty": {}
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "empties": {
+    "an_instance_of_empty": {}
+  },
+  "optional_reference": "an_instance_of_empty",
+  "optional_path": "/some/folder",
+  "optional_array": [
+    3
+  ],
+  "optional_map": {
+    "some-key": 3
+  }
+}

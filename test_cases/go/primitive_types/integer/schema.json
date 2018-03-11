@@ -1,0 +1,13 @@
+{
+  "name": "Some_graph",
+  "description": "defines some object graph.",
+  "go": {
+    "package": "somegraph"
+  },
+  "properties": {
+    "some_int": {
+      "type": "integer",
+      "description": "defines an integer."
+    }
+  }
+}

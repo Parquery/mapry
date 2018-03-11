@@ -1,0 +1,6 @@
+{
+  "empties": {
+    "an-instance-of-empty": 3
+  },
+  "global_reference_to_an_empty": "an-instance-of-empty"
+}

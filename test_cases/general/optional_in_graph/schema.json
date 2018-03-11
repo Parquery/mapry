@@ -1,0 +1,108 @@
+{
+  "name": "Some_graph",
+  "description": "defines some object graph.",
+  "cpp": {
+    "namespace": "some::graph",
+    "path_as": "boost::filesystem::path",
+    "optional_as": "std::experimental::optional",
+    "datetime_library": "ctime"
+  },
+  "go": {
+    "package": "somegraph"
+  },
+  "py": {
+    "module_name": "some.graph",
+    "path_as": "pathlib.Path",
+    "timezone_as": "str"
+  },
+  "classes": [
+    {
+      "name": "Empty",
+      "description": "defines an empty class."
+    }
+  ],
+  "embeds": [
+    {
+      "name": "Some_embed",
+      "description": "defines an empty embeddable structure."
+    }
+  ],
+  "properties": {
+    "optional_array": {
+      "type": "array",
+      "description": "defines some optional array.",
+      "values": {
+        "type": "integer"
+      },
+      "optional": true
+    },
+    "optional_boolean": {
+      "type": "boolean",
+      "description": "defines some optional boolean.",
+      "optional": true
+    },
+    "optional_date": {
+      "type": "date",
+      "description": "defines some optional date.",
+      "optional": true
+    },
+    "optional_datetime": {
+      "type": "datetime",
+      "description": "defines some optional datetime.",
+      "optional": true
+    },
+    "optional_duration": {
+      "type": "duration",
+      "description": "defines some optional duration.",
+      "optional": true
+    },
+    "optional_float": {
+      "type": "float",
+      "description": "defines some optional float.",
+      "optional": true
+    },
+    "optional_integer": {
+      "type": "integer",
+      "description": "defines some optional integer.",
+      "optional": true
+    },
+    "optional_map": {
+      "type": "map",
+      "description": "defines some optional map.",
+      "values": {
+        "type": "integer"
+      },
+      "optional": true
+    },
+    "optional_path": {
+      "type": "path",
+      "description": "defines an optional path.",
+      "optional": true
+    },
+    "optional_string": {
+      "type": "string",
+      "description": "defines an optional string.",
+      "optional": true
+    },
+    "optional_time": {
+      "type": "time",
+      "description": "defines an optional time.",
+      "optional": true
+    },
+    "optional_time_zone": {
+      "type": "time_zone",
+      "description": "defines an optional time zone.",
+      "optional": true
+    },
+    "optional_reference": {
+      "type": "Empty",
+      "description": "defines an optional reference to an instance.",
+      "optional": true
+    },
+    "optional_embed": {
+      "type": "Some_embed",
+      "description": "defines an optional embedded structure.",
+      "optional": true
+    }
+  }
+}

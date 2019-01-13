@@ -1,0 +1,9 @@
+venv3
+.mypy_cache/
+.idea
+*.pyc
+.precommit_hashes
+*.egg-info
+*.generated_from_test.hpp
+sandbox-cpp-build
+sandbox/cpp/cmake-build-debug

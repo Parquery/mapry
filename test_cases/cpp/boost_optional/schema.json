@@ -1,0 +1,45 @@
+{
+  "name": "Some_graph",
+  "description": "defines some object graph.",
+  "cpp": {
+    "namespace": "some::graph",
+    "path_as": "boost::filesystem::path",
+    "optional_as": "boost::optional",
+    "datetime_library": "ctime"
+  },
+  "classes": [
+    {
+      "name": "Empty",
+      "description": "defines an empty class.",
+      "id_pattern": "^[a-zA-Z_][a-zA-Z_0-9]*$"
+    }
+  ],
+  "properties": {
+    "optional_reference": {
+      "type": "Empty",
+      "description": "defines an optional reference to an instance.",
+      "optional": true
+    },
+    "optional_path": {
+      "type": "path",
+      "description": "defines an optional path.",
+      "optional": true
+    },
+    "optional_array": {
+      "type": "array",
+      "description": "defines some optional array.",
+      "values": {
+        "type": "integer"
+      },
+      "optional": true
+    },
+    "optional_map": {
+      "type": "map",
+      "description": "defines some optional map.",
+      "values": {
+        "type": "integer"
+      },
+      "optional": true
+    }
+  }
+}

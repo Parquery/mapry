@@ -1,0 +1,5 @@
+{
+  "some_int_gt_0_lt_100": 100,
+  "some_int_ge_0_le_100": 42,
+  "unconstrained_int": -1984
+}

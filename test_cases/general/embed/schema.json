@@ -1,0 +1,40 @@
+{
+  "name": "Some_graph",
+  "description": "defines some object graph.",
+  "cpp": {
+    "namespace": "some::graph",
+    "path_as": "boost::filesystem::path",
+    "optional_as": "boost::optional",
+    "datetime_library": "ctime"
+  },
+  "go": {
+    "package": "somegraph"
+  },
+  "py": {
+    "module_name": "some.graph",
+    "path_as": "pathlib.Path",
+    "timezone_as": "str"
+  },
+  "embeds": [
+    {
+      "name": "Empty",
+      "description": "defines an embeddable structure without properties."
+    },
+    {
+      "name": "Non_empty",
+      "description": "defines some embeddable structure with properties.",
+      "properties": {
+        "empty": {
+          "type": "Empty",
+          "description": "defines a property."
+        }
+      }
+    }
+  ],
+  "properties": {
+    "some_embed": {
+      "type": "Non_empty",
+      "description": "defines a property of a graph as an embedding."
+    }
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "name": "Some_graph",
+  "description": "defines some object graph.",
+  "cpp": {
+    "namespace": "some::graph",
+    "path_as": "boost::filesystem::path",
+    "optional_as": "boost::optional",
+    "datetime_library": "date.h"
+  },
+  "properties": {
+    "some_time": {
+      "type": "time",
+      "description": "defines some time.",
+      "format": "%H-%M-%S"
+    },
+    "formatless_time": {
+      "type": "time",
+      "description": "defines some formatless time."
+    }
+  }
+}

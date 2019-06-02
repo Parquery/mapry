@@ -1,0 +1,37 @@
+{
+  "name": "Some_graph",
+  "description": "defines some object graph.",
+  "cpp": {
+    "namespace": "some::graph",
+    "path_as": "boost::filesystem::path",
+    "optional_as": "std::experimental::optional",
+    "datetime_library": "ctime"
+  },
+  "go": {
+    "package": "somegraph"
+  },
+  "py": {
+    "module_name": "some.graph",
+    "path_as": "pathlib.Path",
+    "timezone_as": "str"
+  },
+  "embeds": [
+    {
+      "name": "With_optional",
+      "description": "defines an embeddable with an optional property.",
+      "properties": {
+        "some_text": {
+          "type": "string",
+          "description": "defines an optional property.",
+          "optional": true
+        }
+      }
+    }
+  ],
+  "properties": {
+    "some_property": {
+      "type": "With_optional",
+      "description": "tests an embeddable with an optional property."
+    }
+  }
+}

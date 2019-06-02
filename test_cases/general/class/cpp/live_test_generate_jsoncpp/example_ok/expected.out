@@ -1,0 +1,19 @@
+{
+    "empties": 
+    {
+        "an-instance-of-empty": {}
+    },
+    "global_reference_to_an_empty": "an-instance-of-empty",
+    "with_references": 
+    {
+        "an-instance-of-with-reference": 
+        {
+            "array_of_empties": [ "an-instance-of-empty" ],
+            "map_of_empties": 
+            {
+                "some-key": "an-instance-of-empty"
+            },
+            "reference_to_an_empty": "an-instance-of-empty"
+        }
+    }
+}

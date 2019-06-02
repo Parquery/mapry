@@ -1,0 +1,2 @@
+#/some_path: Expected a string, but got: int
+#/unconstrained_path: Expected a string, but got: int

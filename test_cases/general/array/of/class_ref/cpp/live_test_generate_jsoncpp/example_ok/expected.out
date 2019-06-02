@@ -1,0 +1,7 @@
+{
+    "array_of_class_refs": [ "some-empty" ],
+    "empties": 
+    {
+        "some-empty": {}
+    }
+}

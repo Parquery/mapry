@@ -1,0 +1,5 @@
+typing_extensions
+jsonschema>=2.6.0
+lexery>=1.0.1
+icontract>=2.0.5,<3
+jinja2>=2.10,<3

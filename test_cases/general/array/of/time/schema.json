@@ -1,0 +1,27 @@
+{
+  "name": "Some_graph",
+  "description": "defines some object graph.",
+  "cpp": {
+    "namespace": "some::graph",
+    "path_as": "boost::filesystem::path",
+    "optional_as": "boost::optional",
+    "datetime_library": "ctime"
+  },
+  "go": {
+    "package": "somegraph"
+  },
+  "py": {
+    "module_name": "some.graph",
+    "path_as": "pathlib.Path",
+    "timezone_as": "str"
+  },
+  "properties": {
+    "array_of_times": {
+      "type": "array",
+      "description": "tests an array of times.",
+      "values": {
+        "type": "time"
+      }
+    }
+  }
+}

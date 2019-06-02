@@ -1,0 +1,40 @@
+{
+  "name": "Some_graph",
+  "description": "defines some object graph.",
+  "cpp": {
+    "namespace": "some::graph",
+    "path_as": "boost::filesystem::path",
+    "optional_as": "boost::optional",
+    "datetime_library": "ctime"
+  },
+  "go": {
+    "package": "somegraph"
+  },
+  "py": {
+    "module_name": "some.graph",
+    "path_as": "pathlib.Path",
+    "timezone_as": "str"
+  },
+  "properties": {
+    "some_float_gt_0_lt_100": {
+      "type": "float",
+      "description": "defines some float.",
+      "minimum": 0.0,
+      "exclusive_minimum": true,
+      "maximum": 100.0,
+      "exclusive_maximum": true
+    },
+    "some_float_ge_0_le_100": {
+      "type": "float",
+      "description": "defines some float.",
+      "minimum": 0.0,
+      "exclusive_minimum": false,
+      "maximum": 100.0,
+      "exclusive_maximum": false
+    },
+    "unconstrained_float": {
+      "type": "float",
+      "description": "defines an unconstrained float."
+    }
+  }
+}

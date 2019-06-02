@@ -1,0 +1,69 @@
+{
+  "name": "Some_graph",
+  "description": "defines some object graph.",
+  "cpp": {
+    "namespace": "some::graph",
+    "path_as": "boost::filesystem::path",
+    "optional_as": "boost::optional",
+    "datetime_library": "ctime"
+  },
+  "go": {
+    "package": "somegraph"
+  },
+  "py": {
+    "module_name": "some.graph",
+    "path_as": "pathlib.Path",
+    "timezone_as": "str"
+  },
+  "classes": [
+    {
+      "name": "Some_class",
+      "description": "defines a class referencing the other class.",
+      "properties": {
+        "reference_other": {
+          "type": "Other_class",
+          "description": "references other class."
+        },
+        "array_of_others": {
+          "type": "array",
+          "description": "lists instances of other class.",
+          "values": {
+            "type": "Other_class"
+          }
+        },
+        "map_of_others": {
+          "type": "map",
+          "description": "maps strings to instances of other class.",
+          "values": {
+            "type": "Other_class"
+          }
+        }
+      }
+    },
+    {
+      "name": "Other_class",
+      "description": "defines a class with a reference to the some class.",
+      "properties": {
+        "reference_some": {
+          "type": "Some_class",
+          "description": "references some class."
+        },
+        "array_of_somes": {
+          "type": "array",
+          "description": "lists instances of some class.",
+          "values": {
+            "type": "Some_class"
+          }
+        },
+        "map_of_somes": {
+          "type": "map",
+          "description": "maps strings to instances of some class.",
+          "values": {
+            "type": "Some_class"
+          }
+        }
+      }
+    }
+  ],
+  "properties": {}
+}

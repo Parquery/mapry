@@ -1,0 +1,10 @@
+{
+  "some_map": {
+    "some-key": "oi!"
+  },
+  "some_nested_map": {
+    "another-key": {
+      "yet-another-key": 10
+    }
+  }
+}

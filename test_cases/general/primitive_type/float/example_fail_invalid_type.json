@@ -1,0 +1,5 @@
+{
+  "some_float_gt_0_lt_100": "42.3",
+  "some_float_ge_0_le_100": 100.0,
+  "unconstrained_float": -1984.4
+}

@@ -1,0 +1,2 @@
+#/some_path: expected a string, but got: float64
+#/unconstrained_path: expected a string, but got: float64

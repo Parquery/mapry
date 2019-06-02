@@ -1,0 +1,15 @@
+{
+  "name": "Some_graph",
+  "description": "defines some object graph.",
+  "py": {
+    "module_name": "some.graph",
+    "path_as": "pathlib.Path",
+    "timezone_as": "pytz.timezone"
+  },
+  "properties": {
+    "some_time_zone": {
+      "type": "time_zone",
+      "description": "defines some time zone."
+    }
+  }
+}

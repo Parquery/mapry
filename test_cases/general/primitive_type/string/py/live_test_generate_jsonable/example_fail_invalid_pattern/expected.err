@@ -1,0 +1,1 @@
+#/some_str: Expected to match ^[a-zA-Z]*$, but got: some !@#$ string

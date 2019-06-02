@@ -1,0 +1,16 @@
+{
+  "name": "Some_graph",
+  "description": "defines some object graph.",
+  "cpp": {
+    "namespace": "some::graph",
+    "path_as": "boost::filesystem::path",
+    "optional_as": "boost::optional",
+    "datetime_library": "ctime"
+  },
+  "properties": {
+    "some_int": {
+      "type": "integer",
+      "description": "defines an integer."
+    }
+  }
+}

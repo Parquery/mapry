@@ -1,0 +1,7 @@
+{
+  "with_optionals": {
+    "some-instance": {
+      "some_text": "lorem ipsum"
+    }
+  }
+}

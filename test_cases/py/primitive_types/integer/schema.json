@@ -1,0 +1,15 @@
+{
+  "name": "Some_graph",
+  "description": "defines some object graph.",
+  "py": {
+    "module_name": "some.graph",
+    "path_as": "pathlib.Path",
+    "timezone_as": "str"
+  },
+  "properties": {
+    "some_int": {
+      "type": "integer",
+      "description": "defines an integer."
+    }
+  }
+}

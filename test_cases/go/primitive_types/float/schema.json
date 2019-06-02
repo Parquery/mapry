@@ -1,0 +1,13 @@
+{
+  "name": "Some_graph",
+  "description": "defines some object graph.",
+  "go": {
+    "package": "somegraph"
+  },
+  "properties": {
+    "some_float": {
+      "type": "float",
+      "description": "defines a float."
+    }
+  }
+}

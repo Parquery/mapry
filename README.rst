@@ -596,7 +596,7 @@ indicate how they differ from Mapry and explain why we took pains to develop
   `Rapidschema (C++) <https://github.com/ledergec/rapidschema>`_,
   `encoding/json (Go) <https://golang.org/pkg/encoding/json/>`_ or
   `Jackson (Java) <https://github.com/FasterXML/jackson>`_). While some of them
-  support handling object trees (usually through custom logic), we found the
+  support handling object graphs (usually through custom logic), we found the
   lack of polyglot support (and resulting maintenance effort required by
   synchronization of custom de/serialization rules across languages)
   a high barrier-to-usage.

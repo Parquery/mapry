@@ -47,7 +47,7 @@ minimum number of elements in arrays, pattern matching *etc*.).
 
 The **schema** of the object graph is stored in a separate JSON file and defines
 all the data types used in the object graph including the object graph itself.
-The code is generated based on the schema. You define schema once and you
+The code is generated based on the schema. You define schema once and
 generate code in all the supported languages automatically. Schemas can be
 evolved and backward compatibility is supported through optional properties.
 
@@ -417,7 +417,7 @@ You serialize back the ``pipeline`` into a JSONable by:
 The ``jsonable`` can be further serialized to a string by ``json.dumps(.)``
 from the standard library:
 
-.. code-block: Python
+.. code-block:: Python
 
     text = json.dumps(jsonable)
 
@@ -431,7 +431,7 @@ To generate the code in different languages, invoke:
 
 For **C++**:
 
-.. code-block: bash
+.. code-block:: bash
 
     mapry-to cpp \
         --schema /path/to/schema.json \
@@ -439,7 +439,7 @@ For **C++**:
 
 For **Go**:
 
-.. code-block: bash
+.. code-block:: bash
 
     mapry-to go \
         --schema /path/to/schema.json \
@@ -447,7 +447,7 @@ For **Go**:
 
 For **Python**:
 
-.. code-block: bash
+.. code-block:: bash
 
     mapry-to py \
         --schema /path/to/schema.json \

@@ -376,11 +376,11 @@ def _define_graph(
 @ensure(lambda result: result.endswith('\n'))
 def generate(graph: mapry.Graph, py: mapry.Py) -> str:
     """
-    Generate the code that defines the types of the object graph.
+    Generate the source file that defines the types of the object graph.
 
     :param graph: definition of the object graph
     :param py: Python settings
-    :return: generated code
+    :return: content of the source file
     """
     blocks = [mapry.py.generate.WARNING]
 

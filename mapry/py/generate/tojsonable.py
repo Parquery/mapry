@@ -685,11 +685,11 @@ def _serialize_graph(graph: mapry.Graph, py: mapry.Py) -> str:
 @ensure(lambda result: result.endswith('\n'))
 def generate(graph: mapry.Graph, py: mapry.Py) -> str:
     """
-    Generate the code to parse an object graph from a JSONable object.
+    Generate the source file to parse an object graph from a JSONable object.
 
     :param graph: mapry definition of the object graph
     :param py: Python settings
-    :return: generated code
+    :return: content of the source file
     """
     blocks = [
         mapry.py.generate.WARNING,

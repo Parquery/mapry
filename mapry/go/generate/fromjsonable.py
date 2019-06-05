@@ -1781,11 +1781,11 @@ def _parse_graph(
 @ensure(lambda result: result.endswith('\n'))
 def generate(graph: mapry.Graph, go: mapry.Go) -> str:
     """
-    Generate the code to parse an object graph from a JSONable object.
+    Generate the source file to parse an object graph from a JSONable object.
 
     :param graph: mapry definition of the object graph
     :param go: Go settings
-    :return: generated code
+    :return: content of the source file
     """
     blocks = [
         'package {}'.format(go.package),

@@ -1,4 +1,4 @@
-"""Generate the header that defines translation from/to Jsoncpp values."""
+"""Generate the header for de/serialization from/to Jsoncpp values."""
 
 from typing import List, Sequence, Set, Union  # pylint: disable=unused-import
 
@@ -198,7 +198,7 @@ def generate(
         graph: mapry.Graph, cpp: mapry.Cpp, types_header_path: str,
         parse_header_path: str) -> str:
     """
-    Generate the content of the header file.
+    Generate the header file for de/serialization from/to Jsoncpp.
 
     :param graph: definition of the object graph
     :param cpp: C++ settings
@@ -206,7 +206,7 @@ def generate(
         path to the header file that defines the types of the object graph
     :param parse_header_path:
         path to the header file that defines the general parsing structures
-    :return: generated code
+    :return: content of the header file
     """
     blocks = [
         "#pragma once", mapry.cpp.generate.WARNING,

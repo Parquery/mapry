@@ -8,7 +8,7 @@ Mapry
     :target: https://coveralls.io/github/Parquery/mapry
 
 .. image:: https://readthedocs.org/projects/mapry/badge/?version=latest
-    :target: https://mapry.readthedocs.io/en/latest/?badge=latest
+    :target: https://mapry.readthedocs.io/en/latest/
     :alt: Documentation Status
 
 .. image:: https://badge.fury.io/py/mapry.svg
@@ -103,7 +103,7 @@ Documentation
 =============
 
 This document gives only a brief summary of Mapry. The full documentation can be
-found here: `documentation <http://TODO>_`.
+found here: `documentation <https://mapry.readthedocs.io/en/latest/>`_.
 
 Introduction
 ============
@@ -111,7 +111,8 @@ Introduction
 Let us introduce Mapry here by presenting an extensive example. We hope that
 this example would be enough to give you a first impression how to use the
 generator. To get the full picture and read all the details, get a list of
-available features, *etc.* please consult the `documentation <http://TODO>_`.
+available features, *etc.* please consult the
+`documentation <https://mapry.readthedocs.io/en/latest/>`_.
 
 Schema
 ------

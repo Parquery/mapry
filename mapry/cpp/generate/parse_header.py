@@ -75,10 +75,10 @@ def _parse_definitions() -> str:
 @ensure(lambda result: result.endswith('\n'))
 def generate(cpp: mapry.Cpp) -> str:
     """
-    Generate the header file defining the types of the object graph.
+    Generate the header file defining the parsing structures.
 
     :param cpp: C++ settings
-    :return: generated code
+    :return: content of the header file
     """
     blocks = [
         "#pragma once", mapry.cpp.generate.WARNING,

@@ -69,9 +69,9 @@ func (e *Errors) Empty() bool {
 @ensure(lambda result: result.endswith('\n'))
 def generate(go: mapry.Go) -> str:
     """
-    Generate the code to define general structures required for parsing.
+    Generate the souce file to define general structures required for parsing.
 
-    :return: generated code
+    :return: content of the source file
     """
     blocks = [
         "package {}".format(go.package), mapry.go.generate.WARNING,

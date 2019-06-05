@@ -178,11 +178,11 @@ def _define_graph(graph: mapry.Graph, go: mapry.Go) -> str:
 @ensure(lambda result: result.endswith('\n'))
 def generate(graph: mapry.Graph, go: mapry.Go) -> str:
     """
-    Generate the code that defines the types of the object graph.
+    Generate the source file that defines the types of the object graph.
 
     :param graph: definition of the object graph
     :param go: Go settings
-    :return: generated code
+    :return: content of the source file
     """
     blocks = ['package {}'.format(go.package), mapry.go.generate.WARNING]
 

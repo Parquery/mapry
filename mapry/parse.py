@@ -12,7 +12,7 @@ import mapry.naming
 import mapry.validation
 
 
-def cpp_from_mapping(mapping: Mapping[str, Any]) -> mapry.Cpp:
+def _cpp_from_mapping(mapping: Mapping[str, Any]) -> mapry.Cpp:
     """
     Parse parameters for generation of C++ code.
 
@@ -30,7 +30,7 @@ def cpp_from_mapping(mapping: Mapping[str, Any]) -> mapry.Cpp:
     return cpp
 
 
-def go_from_mapping(mapping: Mapping[str, Any]) -> mapry.Go:
+def _go_from_mapping(mapping: Mapping[str, Any]) -> mapry.Go:
     """
     Parse parameters for generation of Go code.
 
@@ -43,7 +43,7 @@ def go_from_mapping(mapping: Mapping[str, Any]) -> mapry.Go:
     return go
 
 
-def py_from_mapping(mapping: Mapping[str, Any]) -> mapry.Py:
+def _py_from_mapping(mapping: Mapping[str, Any]) -> mapry.Py:
     """
     Parse parameters for generation of Python code.
 
@@ -60,7 +60,7 @@ def py_from_mapping(mapping: Mapping[str, Any]) -> mapry.Py:
     return py
 
 
-def class_from_mapping(mapping: Mapping[str, Any], ref: str) -> mapry.Class:
+def _class_from_mapping(mapping: Mapping[str, Any], ref: str) -> mapry.Class:
     """
     Parse the class from the mapping.
 
@@ -88,7 +88,7 @@ def class_from_mapping(mapping: Mapping[str, Any], ref: str) -> mapry.Class:
     return cls
 
 
-def embed_from_mapping(mapping: Mapping[str, Any], ref: str) -> mapry.Embed:
+def _embed_from_mapping(mapping: Mapping[str, Any], ref: str) -> mapry.Embed:
     """
     Parse the embed from the mapping.
 
@@ -103,7 +103,7 @@ def embed_from_mapping(mapping: Mapping[str, Any], ref: str) -> mapry.Embed:
         name=mapping['name'], description=mapping['description'], ref=ref)
 
 
-def recurse_type_from_mapping(
+def _recurse_type_from_mapping(
         mapping: Mapping[str, Any], classes: Mapping[str, mapry.Class],
         embeds: Mapping[str, mapry.Embed]) -> mapry.Type:
     """
@@ -166,7 +166,7 @@ def recurse_type_from_mapping(
 
     if type_identifier == 'array':
         return mapry.Array(
-            values=recurse_type_from_mapping(
+            values=_recurse_type_from_mapping(
                 mapping=mapping['values'], classes=classes, embeds=embeds),
             minimum_size=int(mapping['minimum_size'])
             if 'minimum_size' in mapping else None,
@@ -175,7 +175,7 @@ def recurse_type_from_mapping(
 
     if type_identifier == 'map':
         return mapry.Map(
-            values=recurse_type_from_mapping(
+            values=_recurse_type_from_mapping(
                 mapping=mapping['values'], classes=classes, embeds=embeds))
 
     if type_identifier in classes:
@@ -188,7 +188,7 @@ def recurse_type_from_mapping(
         "Unhandled type identifier: {!r}".format(type_identifier))
 
 
-def property_from_mapping(
+def _property_from_mapping(
         name: str, mapping: Mapping[str, Any],
         classes: Mapping[str, mapry.Class], embeds: Mapping[str, mapry.Embed],
         ref: str, composite: mapry.Composite) -> mapry.Property:
@@ -210,7 +210,7 @@ def property_from_mapping(
         name=name,
         description=mapping['description'],
         json=mapping.get('json', name),
-        a_type=recurse_type_from_mapping(
+        a_type=_recurse_type_from_mapping(
             mapping=mapping, classes=classes, embeds=embeds),
         optional=mapping.get('optional', False),
         composite=composite)
@@ -220,7 +220,7 @@ def property_from_mapping(
     prop.description = mapping['description']
     prop.json = mapping.get('json', name)
 
-    prop.type = recurse_type_from_mapping(
+    prop.type = _recurse_type_from_mapping(
         mapping=mapping, classes=classes, embeds=embeds)
 
     prop.optional = mapping.get('optional', False)
@@ -228,7 +228,7 @@ def property_from_mapping(
     return prop
 
 
-def properties_from_mapping(
+def _properties_from_mapping(
         mapping: Mapping[str, Any], classes: Mapping[str, mapry.Class],
         embeds: Mapping[str, mapry.Embed], ref: str,
         composite: mapry.Composite) -> MutableMapping[str, mapry.Property]:
@@ -258,7 +258,7 @@ def properties_from_mapping(
             name=name,
             description=property_mapping['description'],
             json=property_mapping.get('json', name),
-            a_type=recurse_type_from_mapping(
+            a_type=_recurse_type_from_mapping(
                 mapping=property_mapping, classes=classes, embeds=embeds),
             optional=property_mapping.get('optional', False),
             composite=composite)
@@ -296,18 +296,18 @@ def schema_from_mapping(mapping: Mapping[str, Any], ref: str) -> mapry.Schema:
     if 'classes' in mapping:
         for i, cls_mapping in enumerate(mapping['classes']):
             name = cls_mapping['name']
-            graph.classes[name] = class_from_mapping(
+            graph.classes[name] = _class_from_mapping(
                 mapping=cls_mapping, ref='{}/classes/{}'.format(ref, i))
 
     if 'embeds' in mapping:
         for i, embed_mapping in enumerate(mapping['embeds']):
             name = embed_mapping['name']
-            graph.embeds[name] = embed_from_mapping(
+            graph.embeds[name] = _embed_from_mapping(
                 mapping=embed_mapping, ref='{}/embeds/{}'.format(ref, i))
 
     # Parse the properties of the object graph
     if 'properties' in mapping:
-        graph.properties = properties_from_mapping(
+        graph.properties = _properties_from_mapping(
             mapping=mapping['properties'],
             classes=graph.classes,
             embeds=graph.embeds,
@@ -325,7 +325,7 @@ def schema_from_mapping(mapping: Mapping[str, Any], ref: str) -> mapry.Schema:
             cls = graph.classes[name]
 
             if 'properties' in cls_mapping:
-                cls.properties = properties_from_mapping(
+                cls.properties = _properties_from_mapping(
                     mapping=cls_mapping['properties'],
                     classes=graph.classes,
                     embeds=graph.embeds,
@@ -343,7 +343,7 @@ def schema_from_mapping(mapping: Mapping[str, Any], ref: str) -> mapry.Schema:
             embed = graph.embeds[name]
 
             if 'properties' in embed_mapping:
-                embed.properties = properties_from_mapping(
+                embed.properties = _properties_from_mapping(
                     mapping=embed_mapping['properties'],
                     classes=graph.classes,
                     embeds=graph.embeds,
@@ -356,10 +356,10 @@ def schema_from_mapping(mapping: Mapping[str, Any], ref: str) -> mapry.Schema:
 
     schema = mapry.Schema(
         graph=graph,
-        cpp=cpp_from_mapping(
+        cpp=_cpp_from_mapping(
             mapping=mapping['cpp']) if 'cpp' in mapping else None,
-        go=go_from_mapping(mapping=mapping['go']) if 'go' in mapping else None,
-        py=py_from_mapping(mapping=mapping['py']) if 'py' in mapping else None)
+        go=_go_from_mapping(mapping=mapping['go']) if 'go' in mapping else None,
+        py=_py_from_mapping(mapping=mapping['py']) if 'py' in mapping else None)
 
     return schema
 

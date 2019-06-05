@@ -1,4 +1,4 @@
-"""Generate the code to translate object graphs from/to Jsoncpp values."""
+"""Generate the implementation of de/serialization from/to Jsoncpp values."""
 
 # pylint: disable=too-many-lines
 # pylint: disable=too-many-arguments
@@ -475,7 +475,7 @@ def _value_type_to_string() -> str:
         }''')
 
 
-class AutoID:
+class _AutoID:
     """Keep track of parsing identifiers."""
 
     def __init__(self) -> None:
@@ -526,7 +526,7 @@ if (not {{ value }}.isBool()) {
 @ensure(lambda result: not result.endswith('\n'))
 def _parse_boolean(
         value_expr: str, target_expr: str, ref_parts: List[str],
-        auto_id: AutoID) -> str:
+        auto_id: _AutoID) -> str:
     """
     Generate the code to parse a boolean.
 
@@ -623,7 +623,7 @@ if (not {{ value }}.isInt64()) {
 @ensure(lambda result: not result.endswith('\n'))
 def _parse_integer(
         value_expr: str, target_expr: str, ref_parts: List[str],
-        a_type: mapry.Integer, auto_id: AutoID) -> str:
+        a_type: mapry.Integer, auto_id: _AutoID) -> str:
     """
     Generate the code to parse an integer.
 
@@ -721,7 +721,7 @@ if (not {{ value }}.isDouble()) {
 @ensure(lambda result: not result.endswith('\n'))
 def _parse_float(
         value_expr: str, target_expr: str, ref_parts: List[str],
-        a_type: mapry.Float, auto_id: AutoID) -> str:
+        a_type: mapry.Float, auto_id: _AutoID) -> str:
     """
     Generate the code to parse a floating-point number.
 
@@ -800,7 +800,7 @@ if (not {{ value }}.isString()) {
 @ensure(lambda result: not result.endswith('\n'))
 def _parse_string(
         value_expr: str, target_expr: str, ref_parts: List[str],
-        a_type: mapry.String, auto_id: AutoID) -> str:
+        a_type: mapry.String, auto_id: _AutoID) -> str:
     """
     Generate the code to parse a string.
 
@@ -892,7 +892,7 @@ if (not {{ value }}.isString()) {
 @ensure(lambda result: not result.endswith('\n'))
 def _parse_path(
         value_expr: str, target_expr: str, ref_parts: List[str],
-        a_type: mapry.Path, auto_id: AutoID, cpp: mapry.Cpp) -> str:
+        a_type: mapry.Path, auto_id: _AutoID, cpp: mapry.Cpp) -> str:
     """
     Generate the code to parse a path.
 
@@ -1013,7 +1013,7 @@ if (not {{ value }}.isString()) {
 @ensure(lambda result: not result.endswith('\n'))
 def _parse_date(
         value_expr: str, target_expr: str, ref_parts: List[str],
-        a_type: mapry.Date, auto_id: AutoID, cpp: mapry.Cpp) -> str:
+        a_type: mapry.Date, auto_id: _AutoID, cpp: mapry.Cpp) -> str:
     """
     Generate the code to parse a date.
 
@@ -1052,7 +1052,7 @@ def _parse_date(
 @ensure(lambda result: not result.endswith('\n'))
 def _parse_date_time(
         value_expr: str, target_expr: str, ref_parts: List[str],
-        a_type: mapry.Datetime, auto_id: AutoID, cpp: mapry.Cpp) -> str:
+        a_type: mapry.Datetime, auto_id: _AutoID, cpp: mapry.Cpp) -> str:
     """
     Generate the code to parse a date-time.
 
@@ -1141,7 +1141,7 @@ if (not {{ value }}.isString()) {
 @ensure(lambda result: not result.endswith('\n'))
 def _parse_time(
         value_expr: str, target_expr: str, ref_parts: List[str],
-        a_type: mapry.Time, auto_id: AutoID, cpp: mapry.Cpp) -> str:
+        a_type: mapry.Time, auto_id: _AutoID, cpp: mapry.Cpp) -> str:
     """
     Generate the code to parse a time.
 
@@ -1248,7 +1248,7 @@ if (not {{ value }}.isString()) {
 @ensure(lambda result: not result.endswith('\n'))
 def _parse_time_zone(
         value_expr: str, target_expr: str, ref_parts: List[str],
-        a_type: mapry.TimeZone, auto_id: AutoID, cpp: mapry.Cpp) -> str:
+        a_type: mapry.TimeZone, auto_id: _AutoID, cpp: mapry.Cpp) -> str:
     """
     Generate the code to parse a time zone.
 
@@ -1331,7 +1331,7 @@ if (not {{ value }}.isString()) {
 @ensure(lambda result: not result.endswith('\n'))
 def _parse_duration(
         value_expr: str, target_expr: str, ref_parts: List[str],
-        a_type: mapry.Duration, auto_id: AutoID) -> str:
+        a_type: mapry.Duration, auto_id: _AutoID) -> str:
     """
     Generate the code to parse a duration.
 
@@ -1426,7 +1426,7 @@ if (not {{ value }}.isArray()) {
 def _parse_array(
         value_expr: str, target_expr: str, ref_parts: List[str],
         a_type: mapry.Array, registry_exprs: Mapping[mapry.Class, str],
-        auto_id: AutoID, cpp: mapry.Cpp) -> str:
+        auto_id: _AutoID, cpp: mapry.Cpp) -> str:
     """
     Generate the code to parse an array.
 
@@ -1505,7 +1505,7 @@ if (not {{ value }}.isObject()) {
 def _parse_map(
         value_expr: str, target_expr: str, ref_parts: List[str],
         a_type: mapry.Map, registry_exprs: Mapping[mapry.Class, str],
-        auto_id: AutoID, cpp: mapry.Cpp) -> str:
+        auto_id: _AutoID, cpp: mapry.Cpp) -> str:
     """
     Generate the code to parse a map.
 
@@ -1586,7 +1586,7 @@ if (not {{ value }}.isString()) {
 @ensure(lambda result: not result.endswith('\n'))
 def _parse_instance_reference(
         value_expr: str, target_expr: str, ref_parts: List[str],
-        a_type: mapry.Class, registry_expr: str, auto_id: AutoID) -> str:
+        a_type: mapry.Class, registry_expr: str, auto_id: _AutoID) -> str:
     """
     Generate the code to parse a reference to an instance of a class.
 
@@ -1637,7 +1637,7 @@ const Json::Value& value_{{ uid }} = {{ value_expr }};
 def _parse_embed(
         value_expr: str, target_expr: str, ref_parts: List[str],
         a_type: mapry.Embed, registry_exprs: Mapping[mapry.Class, str],
-        auto_id: AutoID) -> str:
+        auto_id: _AutoID) -> str:
     """
     Generate the code to parse an embeddable structure.
 
@@ -1673,7 +1673,7 @@ def _parse_embed(
 def _parse_value(
         value_expr: str, target_expr: str, ref_parts: List[str],
         a_type: mapry.Type, registry_exprs: Mapping[mapry.Class, str],
-        auto_id: AutoID, cpp: mapry.Cpp) -> str:
+        auto_id: _AutoID, cpp: mapry.Cpp) -> str:
     """
     Generate the code to parse the the ``value_expr`` into the ``target_expr``.
 
@@ -1852,7 +1852,7 @@ if ({{value_obj_expr}}.isMember({{a_property.json|escaped_str}})) {
 def _parse_property(
         target_obj_expr: str, value_obj_expr: str, ref_obj_parts: List[str],
         a_property: mapry.Property, registry_exprs: Mapping[mapry.Class, str],
-        auto_id: AutoID, cpp: mapry.Cpp) -> str:
+        auto_id: _AutoID, cpp: mapry.Cpp) -> str:
     """
     Generate the code to parse a property of a composite from a JSON object.
 
@@ -1964,7 +1964,7 @@ def _parse_composite(
     }
     # yapf: enable
 
-    auto_id = AutoID()
+    auto_id = _AutoID()
 
     # yapf: disable
     property_parsing = {
@@ -2169,7 +2169,7 @@ def _parse_graph(graph: mapry.Graph, cpp: mapry.Cpp) -> str:
     # in the template
     property_parsings = []  # type: List[str]
 
-    auto_id = AutoID()
+    auto_id = _AutoID()
     for prop in graph.properties.values():
         property_parsings.append(
             _parse_property(
@@ -2450,8 +2450,8 @@ for (int i_{{ uid }} = 0;
 
 @ensure(lambda result: not result.endswith('\n'))
 def _serialize_array(
-        target_expr: str, value_expr: str, a_type: mapry.Array, auto_id: AutoID,
-        cpp: mapry.Cpp) -> str:
+        target_expr: str, value_expr: str, a_type: mapry.Array,
+        auto_id: _AutoID, cpp: mapry.Cpp) -> str:
     """
     Generate the code to serialize an array.
 
@@ -2493,7 +2493,7 @@ for (const auto& kv_{{ uid }} : map_{{ uid }}) {
 
 @ensure(lambda result: not result.endswith('\n'))
 def _serialize_map(
-        target_expr: str, value_expr: str, a_type: mapry.Map, auto_id: AutoID,
+        target_expr: str, value_expr: str, a_type: mapry.Map, auto_id: _AutoID,
         cpp: mapry.Cpp) -> str:
     """
     Generate the code to serialize a map.
@@ -2525,7 +2525,7 @@ def _serialize_map(
 
 @ensure(lambda result: not result.endswith('\n'))
 def _serialize_value(
-        target_expr: str, value_expr: str, a_type: mapry.Type, auto_id: AutoID,
+        target_expr: str, value_expr: str, a_type: mapry.Type, auto_id: _AutoID,
         cpp: mapry.Cpp) -> str:
     """
     Generate the code to serialize the ``value_expr`` into the ``target_expr``.
@@ -2608,7 +2608,7 @@ if ({{ value_expr }}) {
 @ensure(lambda result: not result.endswith('\n'))
 def _serialize_property(
         target_expr: str, value_expr: str, a_property: mapry.Property,
-        auto_id: AutoID, cpp: mapry.Cpp) -> str:
+        auto_id: _AutoID, cpp: mapry.Cpp) -> str:
     """
     Generate the code to serialize the property.
 
@@ -2679,7 +2679,7 @@ def _serialize_class_or_embed(
     """
     value_expr = mapry.cpp.naming.as_variable(class_or_embed.name)
 
-    auto_id = AutoID()
+    auto_id = _AutoID()
 
     # yapf: disable
     property_serializations = [
@@ -2765,7 +2765,7 @@ def _serialize_graph(graph: mapry.Graph, cpp: mapry.Cpp) -> str:
     """
     value_expr = mapry.cpp.naming.as_variable(graph.name)
 
-    auto_id = AutoID()
+    auto_id = _AutoID()
 
     # yapf: disable
     property_serializations = [
@@ -2790,7 +2790,7 @@ def generate(
         graph: mapry.Graph, cpp: mapry.Cpp, types_header_path: str,
         parse_header_path: str, jsoncpp_header_path: str) -> str:
     """
-    Generate the de/serialization from/to Jsoncpp values.
+    Generate the implementation file for de/serialization from/to Jsoncpp.
 
     :param graph: definition of the object graph
     :param cpp: C++ settings
@@ -2798,7 +2798,7 @@ def generate(
     :param parse_header_path: defines the general parsing structures
     :param jsoncpp_header_path:
         defines parsing and serializing functions from/to Jsoncpp
-    :return: generated code
+    :return: content of the implementation file
     """
     ##
     # Header

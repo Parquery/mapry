@@ -46,12 +46,12 @@ def _parse_errors() -> str:
 @ensure(lambda result: result.endswith('\n'))
 def generate(cpp: mapry.Cpp, parse_header_path: str) -> str:
     """
-    Generate the implementation of the types of the object graph.
+    Generate the implementation file of the parsing structures.
 
     :param cpp: C++ settings
     :param parse_header_path:
         path to the header file that defines the general parsing structures
-    :return: generated code
+    :return: content of the implementation file
     """
     blocks = [
         mapry.cpp.generate.WARNING, '#include "{}"'.format(parse_header_path),

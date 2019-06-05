@@ -219,11 +219,11 @@ def _graph_placeholder_function(graph: mapry.Graph, py: mapry.Py) -> str:
 @ensure(lambda result: result.endswith('\n'))
 def generate(graph: mapry.Graph, py: mapry.Py) -> str:
     """
-    Generate the code to define general structures required for parsing.
+    Generate the source file to define general structures required for parsing.
 
     :param graph: mapry definition of the object graph
     :param py: Python settings
-    :return: generated code
+    :return: content of the source file
     """
     blocks = [
         mapry.py.generate.WARNING,

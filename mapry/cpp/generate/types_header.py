@@ -367,11 +367,11 @@ def _graph_definition(graph: mapry.Graph, cpp: mapry.Cpp) -> str:
 @ensure(lambda result: result.endswith('\n'))
 def generate(graph: mapry.Graph, cpp: mapry.Cpp) -> str:
     """
-    Generate the the header file that defines the types of the object graph.
+    Generate the header file that defines the types of the object graph.
 
     :param graph: definition of the object graph
     :param cpp: C++ settings
-    :return: generated code
+    :return: content of the header file
     """
     blocks = [
         "#pragma once", mapry.cpp.generate.WARNING,

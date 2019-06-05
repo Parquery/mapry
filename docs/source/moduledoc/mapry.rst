@@ -1,0 +1,5 @@
+mapry
+=====
+
+.. automodule:: mapry
+    :members:

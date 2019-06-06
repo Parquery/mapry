@@ -84,14 +84,18 @@ GRAPH = {
                     ]
                 },
                 "datetime_library": {
-                    "type": "string",
-                    "description": "defines the date/time library.",
+                    "type":
+                    "string",
+                    "description":
+                    "defines the date/time library to use for "
+                    "date, datetime, time and time zone "
+                    "manipulation.",
                     "enum": ["ctime", "date.h"]
                 },
                 "indention": {
                     "type": "string",
                     "description":
-                    "defines the indention of the generated code. "
+                    "defines the indention of the generated code."
                     "Defaults to two spaces.",
                     "pattern": "^[ \t]*$"
                 }

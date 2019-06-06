@@ -1,0 +1,19 @@
+{
+  "maintainer": "alice",
+  "persons": {
+    "alice": {
+      "address": {
+        "text": "Some street 12, Some City, Some Country"
+      },
+      "birthday": "1983-10-24",
+      "full_name": "Alice Doe"
+    },
+    "bob": {
+      "address": {
+        "text": "Another street 36, Another City, Another Country"
+      },
+      "birthday": "2016-07-03",
+      "full_name": "Bob Johnson"
+    }
+  }
+}

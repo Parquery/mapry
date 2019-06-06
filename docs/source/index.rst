@@ -10,7 +10,19 @@ Welcome to Mapry's documentation!
     :maxdepth: 2
     :caption: Contents:
 
+    design_decisions
+    schema
+    cpp_specifics
+    go_specifics
+    py_specifics
+    installation
+    command_line_usage
     moduledoc/index
+    related_projects
+    future_work
+    contributing
+    versioning
+
 
 Indices and tables
 ==================

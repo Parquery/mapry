@@ -335,12 +335,12 @@ def execute_case(case: Case, bin_dir: pathlib.Path) -> None:
         say("Running against the example: {}".format(example_id))
 
         expected_out_pth = (
-            case.schema_path.parent / "cpp/live_test_generate_jsoncpp" /
-            example_id / "expected.out")
+                case.schema_path.parent / "cpp/live_test_generate_jsoncpp" /
+                example_id / "expected.out")
 
         expected_err_pth = (
-            case.schema_path.parent / "cpp/live_test_generate_jsoncpp" /
-            example_id / "expected.err")
+                case.schema_path.parent / "cpp/live_test_generate_jsoncpp" /
+                example_id / "expected.err")
 
         # yapf: disable
         proc = subprocess.Popen(
@@ -369,8 +369,8 @@ def execute_case(case: Case, bin_dir: pathlib.Path) -> None:
             raise AssertionError((
                 "Expected stdout ({}): {!r}, got: {!r}\n"
                 "Expected stderr ({}): {!r}, got: {!r}").format(
-                    expected_out_pth, expected_out, out, expected_err_pth,
-                    expected_err, err))
+                expected_out_pth, expected_out, out, expected_err_pth,
+                expected_err, err))
 
         elif expected_out != out:
             raise AssertionError(
@@ -421,7 +421,7 @@ def main() -> None:
     parser.add_argument(
         "--operation_dir",
         help="path to the directory where temporary test files are stored; "
-        "if not specified, uses mkdtemp()")
+             "if not specified, uses mkdtemp()")
 
     args = parser.parse_args()
 

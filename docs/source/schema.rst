@@ -127,8 +127,9 @@ Primitive Types
 
     Note that different languages can represent different (and mutually
     possibly incompatible!) ranges of integers. See
-    :ref:`cpp_specifics:Numbers`, :ref:`go_specifics:Numbers` and
-    :ref:`py_specifics:Numbers` for more details.
+    :ref:`Numbers in C++ <cpp_specifics:Numbers>`,
+    :ref:`Numbers in Go <go_specifics:Numbers>` and
+    :ref:`Numbers in Python <py_specifics:Numbers>` for more details.
 
 ``float``
     specifies a floating-point number.
@@ -143,8 +144,9 @@ Primitive Types
 
     Note that different languages can represent different (and mutually
     possibly incompatible!) ranges of floating-point numbers. See
-    :ref:`cpp_specifics:Numbers`, :ref:`go_specifics:Numbers` and
-    :ref:`py_specifics:Numbers` for more details.
+    :ref:`Numbers in C++ <cpp_specifics:Numbers>`,
+    :ref:`Numbers in Go <go_specifics:Numbers>` and
+    :ref:`Numbers in Python <py_specifics:Numbers>` for more details.
 
 ``string``
     denotes a string of characters.
@@ -211,25 +213,22 @@ Primitive Types
 ``duration``
     measures a duration between two instants.
 
-    The granularity and range of representable durations differs between
-    languages (see :ref:`cpp_specifics:Durations`,
-    :ref:`go_specifics:Durations` and :ref:`py_specifics:Durations`).
-
     Durations can be both positives and negatives. Following
     `C++ std::chrono library <https://en.cppreference.com/w/cpp/chrono/duration>`_,
     Mapry assumes a year as average year (365.2425 days) and a month as
     average month (30.436875 days). If a duration should denote actual months
     from a given starting date, you have to represent the duration as strings
     and manually parse them by a third-party library (*e.g.*,
-    `isodate (Python) <https://pypi.org/project/isodate/>`_).
+    `isodate in Python <https://pypi.org/project/isodate/>`_).
 
     For example, ``"P6M2.1DT3H54M12.54S"`` (6 months, 2.1 days, 3 hours,
     54 minutes and 12.54 seconds).
 
     Note that different languages can represent different (and mutually
     possibly incompatible!) granularities and ranges of durations. See
-    :ref:`cpp_specifics:Durations`, :ref:`go_specifics:Durations` and
-    :ref:`py_specifics:Durations` for more details.
+    :ref:`Durations in C++ <cpp_specifics:Durations>`,
+    :ref:`Durations in Go <go_specifics:Durations>` and
+    :ref:`Durations in Python <py_specifics:Durations>` for more details.
 
 Aggregated Types
 ^^^^^^^^^^^^^^^^

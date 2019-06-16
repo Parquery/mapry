@@ -12,10 +12,11 @@ Mapry
     :alt: Documentation Status
 
 .. image:: https://badge.fury.io/py/mapry.svg
-    :target: https://badge.fury.io/py/mapry
+    :target: https://pypi.org/project/mapry/
     :alt: PyPI - version
 
 .. image:: https://img.shields.io/pypi/pyversions/mapry.svg
+    :target: https://pypi.org/project/mapry/
     :alt: PyPI - Python Version
 
 Mapry generates polyglot code for de/serializing object graphs from
@@ -24,75 +25,49 @@ JSONable structures.
 **Story**. We needed a yet another domain-specific language for internal data
 exchange and configuration of the system. The existing solutions mostly focused
 on modeling the configuration as *object trees* in which the data is nested in
-hierarchies with no cross-references between the objects. For example,
-think of object trees as JSON objects or arrays. We found this structure to be
-highly limiting for most of the complex messages and system configurations.
-Our use cases required objects in the data to be referenced among each other --
-instead of object trees we needed *object graphs*.
+hierarchies with no **cross-references** between the objects.
 
-Moreover, we wanted the serialization itself to be readable so that an operator
-can edit it using a simple text editor. JSONable structure offered itself as
-a good fit there with a lot of existing assistance tools (JSON and YAML
-modules *etc*.).
+For example, think of object trees as JSON objects or arrays. We found this
+structure to be highly limiting for most of the complex messages and system
+configurations. Our use cases required objects in the data to be referenced
+among each other -- instead of object trees we needed **object graphs**.
 
-Hence we developed Mapry, a generator that produces code to de/serialize
-**object graphs** from **JSONable structures**.
+Moreover, we wanted the serialization itself to be **readable** so that an
+operator can edit it using a simple text editor. JSONable structure offered
+itself as a good fit there with a lot of existing assistance tools (JSON and
+YAML modules *etc*.).
 
-**Maintainability**. We wanted to facilitate maintainability of the system
-through as many static and run time checks as possible so that most errors
-in the object graphs are registered prior to the deployment in the production.
-These checks include strong typing annotations at generation time and
-various runtime checks at deserialization (dangling references, range checks,
-minimum number of elements in arrays, pattern matching *etc*.).
+However, JSON allows only a limited set of data types (numbers, strings, arrays
+and objects/maps). We found that most of our data relied on
+**a richer set of primitives** than was provided by a standard JSON. This
+extended set includes:
+
+ * date,
+ * datetime,
+ * time of day,
+ * time zone,
+ * duration and
+ * path.
+
+While there exist polyglot serializers of object trees (*e.g.*,
+`Protocol Buffers <https://developers.google.com/protocol-buffers/>`_),
+language-specific serializers of object graphs (*e.g.,*
+`Gob (Go) <https://golang.org/pkg/encoding/gob/>`_ or
+`Pickle (Python) <https://docs.python.org/3/library/pickle.html>`_) or polyglot
+ones with a limited set of primitives (*e.g.,*
+`Flatbuffers <https://google.github.io/flatbuffers/>`_), to the best of our
+knowledge there is currently no serializer of **object graphs** that operates
+with **readable representations** and provides a
+**rich set of primitive data types** consistently **across multiple languages**.
+
+Hence we developed Mapry, a generator of polyglot de/serialization code
+for object graphs from JSONable structures.
 
 The **schema** of the object graph is stored in a separate JSON file and defines
 all the data types used in the object graph including the object graph itself.
 The code is generated based on the schema. You define schema once and
 generate code in all the supported languages automatically. Schemas can be
 evolved and backward compatibility is supported through optional properties.
-
-**Versatility**. Since we need humans to operate on object graphs,
-we needed the data representation of the object graph to be readable and
-editable. Hence we strived to make the resulting JSONable structures succinct
-yet comprehensible.
-
-We intentionally did not fixate Mapry to directly handle files to allow for
-a larger variety of supported formats and sources (JSON, YAML, BSON, MongoDB
-*etc.*). Mapry operates on an in-memory representation of the JSONable data
-(such as Python dictionaries or Go ``map[string]interface{}``) which makes it
-much more versatile than if it handled data sources directly.
-
-**Code readability over speed**. We wanted the generated code to be rather
-readable than fast. Though the seasoned developers might not care about the
-implementation details, we found that newcomers really like to peek under the
-hub. They get up to speed much faster when the generated code is readable.
-
-In particular, when the generated code permeates most of your system components,
-the readability becomes a paramount when you fix bottlenecks or debug.
-
-**Avoid dependency hell**. We explicitly decided to make the generated code as
-stand-alone as possible. This includes generating redundant data structures such
-as parsing errors which could be theoretically used across different generated
-modules.
-
-While this redundancy seems wasteful (duplication) or impractical (specific
-errors need to be checked instead of general ones), stand-alone code
-allows us to dispense of a common Mapry library which greatly alleviates
-the dependency hell in larger systems.
-
-Take `Protocol buffers <https://developers.google.com/protocol-buffers/>`_
-as a contrasting example. The code generated by protocol buffers depends on a
-common ``protobuf`` library. Imagine you depend on two different libraries,
-each using a different version of protocol buffers. Since your system now has
-conflicting dependencies, there is usually no easy way to use both libraries in
-the system. If you are not the owner, you need to contact the maintainers of one
-of the libraries and ask them for an upgrade.
-
-**Rich set of primitives**. We found that most of our data relied on a richer
-set of primitives than was provided by a standard JSON. We extended this set
-to include date, datetime, time of day, time zone, duration and path. These
-primitives greatly reduce the impedance mismatch between the data and program
-logic and spare us a lot of boiler-plate validation code.
 
 **Supported languages**. Currently, Mapry speaks C++11, Go 1 and Python 3.
 Since the serialization needs to operate in different languages, only the
@@ -103,50 +78,23 @@ Documentation
 =============
 
 This document gives only a brief summary of Mapry. The full documentation can be
-found here: `documentation <https://mapry.readthedocs.io/en/latest/>`_.
+found `here <https://mapry.readthedocs.io/en/latest/>`_.
 
 Introduction
 ============
 
-Let us introduce Mapry here by presenting an extensive example. We hope that
-this example would be enough to give you a first impression how to use the
-generator. To get the full picture and read all the details, get a list of
-available features, *etc.* please consult the
+Let us introduce Mapry here by presenting a short example to give you a first
+impression how to use the generator. To get the full picture, please consult the
 `documentation <https://mapry.readthedocs.io/en/latest/>`_.
 
-Schema
-------
-The mapry schema defines the properties and structures of the object graph in a
-single JSON file. This file is parsed by mapry code generators to generate
-the de/serialization code in the respective languages.
+The schema starts with the name and a description, followed by the
+language-specific settings (specifying the non-standard parts of the code
+generation), defines the graph structures and finally defines the properties of
+the object graph itself.
 
-The schema is split in multiple sections.
+Here is an example schema to give you an overview:
 
-**Language-specific settings**. It starts by defining
-language-specific settings that instruct mapry how to deal with non-standard
-structures during code generation. For example, you need to instruct which path
-library to use in Python to represent file system paths (``str`` or
-``pathlib.Path``). Note that settings can be specified only for a subset of
-languages. For example, you can omit C++ settings if you are going to generate
-the code only in Go and Python.
-
-**Structures**. Next, we define *classes* (*i.e.*, referencable structures) and
-*embeddable structures* (*i.e.* data structures embedded in other data
-structures). Each class and embeddable structure is defined by its properties
-and described in the schema. Finally, we define the properties of the object
-graph itself.
-
-The definition of a property includes its name, data type, description,
-constraints (*e.g.*, minimum and maximum value for numbers, regular expression
-for strings *etc.*) and whether the property is required or optional.
-
-The data types span a variety of primitive types (boolean, integer, float,
-string, path, date, time of day, date/time, time zone and duration) and
-aggregated types (array, map).
-
-The following snippet gives an extensive example of a mapry schema.
-
-.. code-block:: json-object
+.. code-block:: json
 
     {
       "name": "Pipeline",
@@ -174,49 +122,13 @@ The following snippet gives an extensive example of a mapry schema.
               "type": "string",
               "description": "gives the full name (including middle names)."
             },
+            "birthday": {
+              "type": "date",
+              "description": "indicates the birthday in UTC."
+            },
             "address": {
               "type": "Address",
               "description": "notes where the person lives."
-            },
-            "picture": {
-              "type": "path",
-              "description": "points to the image on the disk.",
-              "pattern": "^/images/.*$",
-              "optional": true
-            },
-            "birthday": {
-              "type": "date",
-              "description": "gives the birthday of the person in UTC."
-            },
-            "last_modified": {
-              "type": "datetime",
-              "description": "indicates the last modification timestamp."
-            },
-            "contact_period": {
-              "type": "duration",
-              "description": "gives a minimum period between two calls."
-            },
-            "friends": {
-              "type": "map",
-              "description": "lists friends of the person by nicknames.",
-              "values": {
-                "type": "Person"
-              }
-            },
-            "active": {
-              "type": "boolean",
-              "description": "fires if the user is actively participating."
-            },
-            "height": {
-              "type": "integer",
-              "description": "gives height in centimeters.",
-              "minimum": 0,
-              "maximum": 300
-            },
-            "fee": {
-              "type": "float",
-              "description": "specifies the memebership fee in dollars.",
-              "minimum": 0
             }
           }
         }
@@ -229,10 +141,6 @@ The following snippet gives an extensive example of a mapry schema.
             "text": {
               "type": "string",
               "description": "gives the full address."
-            },
-            "time_zone": {
-              "type": "time_zone",
-              "description": "specifies the time zone of the address."
             }
           }
         }
@@ -245,160 +153,22 @@ The following snippet gives an extensive example of a mapry schema.
       }
     }
 
-Generated Code
---------------
-
-You can peek at the complete generated code in the folder
-`test_cases/docs/readme <https://github.com/Parquery/mapry/tree/master/test_cases/docs/readme>`_
-in the repository. We give here only a brief overview.
-
-C++
-^^^
-
-Mapry produces all the files in a single directory. The generated code lives
-in the namespace indicated by C++ setting ``namespace`` in the schema.
-
-**Overview**.
-Mapry generates the following files (in order of abstraction):
-
-* ``types.h`` defines all the graph structures (embeddable structures,
-  classes, object graph itself *etc.*).
-* ``parse.h`` and ``parse.cpp`` define the structures used for parsing and
-  implement their handling (such as parsing errors).
-* ``jsoncpp.h`` and ``jsoncpp.cpp`` define and implement the de/serialization
-  of the object graph from/to a
-  `Jsoncpp <https://github.com/open-source-parsers/jsoncpp>`_ value.
-
-**De/serialization**.
-The following snippet shows you how to deserialize the object graph from a
-Jsoncpp value.
-
-.. code-block:: C++
-
-    Json::Value value;
-    // ... parse the value from a source, e.g., a file
-
-    book::address::parse::Errors errors(1024);
-    book::address::Pipeline pipeline;
-
-    book::address::jsoncpp::pipeline_from(
-        value,
-        "/path/to/the/file.json#",
-        &pipeline,
-        &errors);
-
-    if (not errors.empty()) {
-        for (const auto& err : errors.get()) {
-            std::cerr << err.ref << ": " << err.message << std::endl;
-        }
-        return 1;
-    }
-
-Here is how you can serialize the graph to a Jsoncpp value (assuming you
-predefined the variable ``pipeline``):
-
-.. code-block:: C++
-
-    const Json::Value value(
-            book::address::jsoncpp::serialize_pipeline(
-                pipeline));
-
-**Building**.
-The generated code is *not* header-only. Since there is no standard C++ build
-system and supporting the whole variety of build systems would have been overly
-complex, we decided to simply let the user integrate the generated files into
-their build system manually. For example, Mapry will not generate any CMake
-files.
-
-Go
-^^
-
-Mapry generates all the files in a single directory. The code lives in the
-package indicated by the Go setting ``package`` of the schema.
-
-**Overview**.
-Mapry writes the following files (in order of abstraction):
-
-* ``types.go`` defines all the structures of the object graph (embeddable
-  structures, classes, object graph itself *etc.*)
-
-* ``parse.go`` defines general parsing structures and their handling (such as
-  parsing errors).
-
-* ``fromjsonable.go`` provides functions for parsing the object graph from a
-  JSONable ``interface{}`` value.
-
-* ``tojsonable.go`` gives you functions for serializing the object graph to a
-  JSONable ``interface{}`` value.
-
-**De/serialization**.
-You deserialize the object graph from a JSONable ``interface{}`` as follows.
-
-.. code-block:: Go
-
-    var value interface{}
-    // ... parse the value from a source, e.g., a file
-
-    pipeline := &address.Pipeline{}
-    errors := address.NewErrors(0)
-
-    address.PipelineFromJSONable(
-        value,
-        "#",
-        pipeline,
-        errors)
-
-    if !errors.Empty() {
-        ee := errors.Values()
-        for i := 0; i < len(ee); i++ {
-            fmt.Fprintf(
-                os.Stderr,
-                "%s: %s\n",
-                ee[i].Ref,
-                ee[i].Message)
-        }
-        return 1
-    }
-
-To serialize the ``pipeline`` back into a JSONable ``interface{}``:
-
-.. code-block:: Go
-
-    var err error
-    var jsonable map[string]interface{}
-    jsonable, err = address.PipelineToJSONable(pipeline)
-
-
-Python
-^^^^^^
-
-Mapry generates a module consisting of multiple inter-dependent submodules.
-The main module is given in the Python setting ``module_name`` of the schema.
-
-**Overview**.
-Here is the overview of the generated files (in order of abstraction).
-
-* ``__init__.py`` defines the general structures of the object graph (embeddable
-  structures, classes, object graph itself *etc.*).
-* ``parse.py`` defines general parsing structures such as parsing errors.
-* ``fromjsonable.py`` defines parsing of the object graph from a JSONable
-  dictionary.
-* ``tojsonable.py`` defines serialization of the object graph to a JSONable
-  dictionary.
-
-**De/serialization**.
-The object graph is deserialized from a JSONable value obtained using the
-``json`` module from the standard library:
+Once you generated the de/serialization code with Mapry, you can use it,
+for example, in Python:
 
 .. code-block:: Python
 
-    value = json.loads(...)
+    # Obtain a JSONable
+    pth = '/path/to/the/file.json'
+    with open(pth, 'rt') as fid:
+        value = json.load(fid)
 
+    # Parse the JSONable
     errors = book.address.parse.Errors(cap=10)
 
     pipeline = book.address.fromjsonable.pipeline_from(
         value=value,
-        ref="#",
+        ref=pth + '#',
         errors=errors)
 
     if not errors.empty():
@@ -407,20 +177,21 @@ The object graph is deserialized from a JSONable value obtained using the
 
         return 1
 
-You serialize back the ``pipeline`` into a JSONable by:
+You can access the object graph ``pipeline``:
 
 .. code-block:: Python
 
-    jsonable = book.address.tojsonable.serialize_pipeline(
-        pipeline,
-        ordered=True)
+    print('Maintainers are:')
+    for maintainer in pipeline.maintainers:
+        print('{} (address: {}, birthday: {})'.format(
+            maintainer.full_name,
+            maintainer.address.text,
+            maintainer.birthday.strftime("%d.%m.%Y")))
 
-The ``jsonable`` can be further serialized to a string by ``json.dumps(.)``
-from the standard library:
-
-.. code-block:: Python
-
-    text = json.dumps(jsonable)
+The full generated code can be accessed for this schema in
+`C++ <https://github.com/Parquery/mapry/blob/master/test_cases/docs/schema/introductory_example/cpp/test_generate>`_,
+`Go <https://github.com/Parquery/mapry/blob/master/test_cases/docs/schema/introductory_example/py/test_generate>`_ and
+`Python <https://github.com/Parquery/mapry/blob/master/test_cases/docs/schema/introductory_example/py/test_generate>`_.
 
 Usage
 =====
@@ -457,277 +228,23 @@ For **Python**:
 If the output directory does not exist, it will be created. Any existing
 files will be silently overwritten.
 
-
 Installation
 ============
-
 We provide a prepackaged PEX file that can be readily downloaded and executed.
 Please see the `Releases section <https://github.com/Parquery/mapry/releases>`_.
 
 If you prefer to use Mapry as a library (*e.g.*, as part of your Python-based
-build system), install it as follows:
-
-* Create a virtual environment:
-
-.. code-block:: bash
-
-    python3 -m venv venv3
-
-* Activate it:
-
-.. code-block:: bash
-
-    source venv3/bin/activate
-
-* Install Mapry with pip:
+build system), install it with pip:
 
 .. code-block:: bash
 
     pip3 install mapry
 
-Future Work
-===========
-
-While Mapry satisfies very well many of our practical needs, there are
-countless possible improvement vectors. If you feel strong about any of
-the listed improvements (or you have another one in mind), please
-`create an issue <https://github.com/Parquery/mapry/issues/new>`_ and
-help us discuss it.
-
-**New primitive types**. We tried to devise a practical set of primitive types
-that covers most use cases. However, we do not know our (existing or potential)
-user base and our assumptions on what is necessary might be wrong.
-
-**New aggergated types**. So far, we introduced only arrays and maps as
-aggregated types since they are JSON-native.
-
-While JSON does not support aggregated types such as sets, the sets are at the
-core of many data models and would definitely merit a representation in Mapry.
-Please let us know your opinion about what would be a conventional way of
-representing sets in JSON.
-
-**Elaborate composite type system**. We limited the composite type system to a
-graph, classes and embeddable structures for simplicity following Go's approach
-(lack of inheritance, tuples and unions by design). We find optional fields to
-cover most of the use cases where inheritance, tuples or unions also fit.
-
-Please feel free to convince us of the contrary and tell us how inheritance,
-tuples or unions should be handled. In particular, we do not really know what
-would be a conventional way of dealing with such a type system in Go.
-
-Moreover, it is not clear to us how to deal with variance in aggregated types
-(covariance, contravariance or invariance) since different languages follow
-different approaches. Admittedly, we are a bit lost how to approach this issue
-and are open to suggestions.
-
-**Better contracts**. We are convinced that contracts make data structures
-more maintainable and prevent many of the errors early.
-However, Mapry's current contracts such as patterns and minimum/maximum are
-quite limited and need extensions. Please let us know which contracts you would
-welcome and how you would like to specify them.
-
-Unfortunately, we can support only the most basic contracts. We do not have the
-time resources to include a declarative or imperative contract language
-that would automatically compile into the generated code. Notwithstanding the
-lack of time, we strongly believe that such a language would be beneficial and
-are open for cooperation if you think you could help us tackle that challenge.
-
-**Efficiency of de/serialization**. Mapry was optimized for readability of
-generated code rather than the efficiency of de/serialization. Multiple
-improvements are possible here.
-
-Obviously, the generated de/serialization code could be optimized
-while still maintaining the readability. Please let us know which practical
-bottlenecks you experienced so that we know where/how to focus our optimization
-efforts.
-
-Since Mapry does not depend on the source of the JSONable data, you can already
-use faster JSON-parsing libraries (*e.g.*,
-`fastjson (Go) <https://github.com/valyala/fastjson>`_ or
-`orjson (Python) <https://pypi.org/project/orjson/>`_). However, in C++ setting
-where no standard JSONable structure exists, we could introduce
-an additional code generator based on faster JSON-parsing libraries such as
-`rapidjson <http://rapidjson.org/>`_.
-
-**Fast de/serialization of character streams**. Instead of operating
-on JSONable structures which are wasteful of memory and computational resources,
-we could generate de/serialization code that operates on streams of characters.
-Since schema is known, we could exploit that knowledge to make code
-work in one pass, be frugal in memory (*e.g.*, consume only as much memory as is
-necessary to hold the object graph) and be extremely fast (since the data types
-are known in advance).
-
-Additionally, when the language is slow (*e.g.*, Python), the code can be made
-even faster by generating it in the most efficient language (*e.g.*, C) together
-with a wrapper in the original language.
-
-For an example of such an approach based on schema knowledge, see
-`easyjson (Go) <https://github.com/mailru/easyjson>`_.
-
-**Improve readability of generated code**. While we find the generated code
-readable, the readability lies in the eye of the beholder. Please let us know
-which spots were hard for you to parse and how we could improve them.
-
-**Runtime checks at serialization**. We designed Mapry to perform runtime
-validation checks only at deserialization since we envisioned its main input
-to be generated by humans. However, if you construct an object graph
-programmatically, you need to serialize it and then deserialize it in order to
-validate the contracts. While this works in cases with small data, it would be
-computationally wasteful on large object graphs.
-
-We are thinking about introducing validation at serialization as well (triggered
-by a dedicated flag argument). Please let us know if you miss this functionality
-and what would you like to have covered.
-
-Related Projects
-================
-
-We give here a non-comprehensive list of related de/serialization projects. We
-indicate how they differ from Mapry and explain why we took pains to develop
-(and maintain!) our own tool instead of using an existing one.
-
-* Standard JSON libraries all support object trees, but not object graphs.
-  Moreover, they do not support data based on a schema. While this is handy
-  when the structure of your data is unknown at runtime, it makes code
-  unnecessarily more difficult to maintain when the structure is indeed
-  known in advance.
-
-* There is a large ecosystem around structured objects and their serialization
-  based on property annotations (*e.g.*,
-  `Rapidschema (C++) <https://github.com/ledergec/rapidschema>`_,
-  `encoding/json (Go) <https://golang.org/pkg/encoding/json/>`_ or
-  `Jackson (Java) <https://github.com/FasterXML/jackson>`_). While some of them
-  support handling object graphs (usually through custom logic), we found the
-  lack of polyglot support (and resulting maintenance effort required by
-  synchronization of custom de/serialization rules across languages)
-  a high barrier-to-usage.
-
-* Standard or widely used serialization libraries such as
-  `Boost.Serialization (C++) <https://www.boost.org/doc/libs/1_70_0/libs/serialization/doc/index.html>`_,
-  `Gob (Go) <https://golang.org/pkg/encoding/gob/>`_ or
-  `Pickle (Python) <https://docs.python.org/3/library/pickle.html>`_
-  serialize object graphs out-of-the-box and handle impedance mismatch well.
-  However, the representation of the serialized data is barely human-readable
-  and difficult to get right in a polyglot setting due to a lack of common
-  poly-language libraries (*e.g.*, reading pickled data structures in C++).
-  We deemed it a Herculean task to maintain the corresponding de/serializations
-  accross different languages.
-
-* Popular serializers such as
-  `Protocol Buffers <https://developers.google.com/protocol-buffers/>`_ or
-  `Cap'n Proto <https://capnproto.org/>`_
-  support only object trees. If you need to work with cross-references in the
-  serialized message, you need to dereference instances yourself. We found
-  manual dereferencing in code to be error prone and lead to a substantial
-  code bloat.
-
-* `Flatbuffers <https://google.github.io/flatbuffers/>`_ handle object graphs
-  natively, but exhibit a great deal of impedance mismatch through lack
-  of maps and sophisticated data types such as date/time, duration *etc.*
-
-* Language-specific serializers such as
-  `ThorSerializer (C++) <https://github.com/Loki-Astari/ThorsSerializer>`_,
-  `JavaScript Object Graph (Javascript) <https://github.com/jsog/jsog>`_,
-  `Serializr (Javascript) <https://github.com/mobxjs/serializr>`_ and
-  `Flexjson (Java) <http://flexjson.sourceforge.net/>`_
-  serialize object graphs with satisfying, but varying degree of structure
-  enforcement and readability. Most approaches require the developer to
-  annotate the structures with decorators which the libraries use to parse
-  and serialize data. As long as you use a single-language setting and
-  care about the data being readable, these solutions work well. However,
-  it is not clear how they can be adapted to a multi-language setting where
-  system components written in different languages need to inter-operate.
-
-* `JSON for Linking Data <https://json-ld.org/>`_ and
-  `JSON Graph <netflix.github.io/falcor/documentation/jsongraph.html>`_ are
-  conventions to provide a systematic approach to modeling the object graphs in
-  JSON. While these conventions look promising, we found the existing
-  libraries lacking for production-ready code. On a marginal note,
-  the JSON representations seem unnecessarily verbose when representing
-  references.
-
-* `JVM serializers <https://github.com/eishay/jvm-serializers/wiki>`_ presents
-  a report on different object serializers running on top of Java Virtual
-  Machine. The serializers are evaluated based on their run time and size.
-
-
-Development
-===========
-
-We are very grateful for and welcome contributions: be it opening of the issues,
-discussing future features or submitting pull requests.
-
-To submit a pull request:
-
-* Check out the repository.
-
-* In the repository root, create the virtual environment:
-
-.. code-block:: bash
-
-    python3 -m venv venv3
-
-* Activate the virtual environment:
-
-.. code-block:: bash
-
-    source venv3/bin/activate
-
-* Install the development dependencies:
-
-.. code-block:: bash
-
-    pip3 install -e .[dev]
-
-* Implement your changes.
-
-* Run `precommit.py` to execute pre-commit checks locally.
-
-Live tests
-----------
-
-We also provide live tests that generate, compile and run the de/serialization
-code on a series of tests cases. These live tests depend on build tools of
-the respective languages (*e.g.*, gcc and CMake for C++, go compiler for Go,
-mypy for Python).
-
-You need to install the build tools. Then create a separate virtual
-environment for the respective language and install Python dependencies for
-the respective language (*e.g.*, Conan in case of C++).
-
-The workflow for C++ looks as follows:
-
-.. code-block:: bash
-
-    # Create a separate virtual environment
-    python3 -m venv venv-cpp
-
-    # Activate it
-    . venv-cpp/bin/activate
-
-    # Install the dependencies of C++ live tests
-    pip3 install -e .[testcpp]
-
-    # Run the live tests
-    ./tests/cpp/live_test_generate_jsoncpp.py
-
-For Go:
-
-.. code-block:: bash
-
-    python3 -m venv venv-go
-    . venv-go/bin/activate
-    pip3 install -e .[testgo]
-    ./tests/go/live_test_generate_jsonable.py
-
-For Python:
-
-.. code-block:: bash
-
-    python3 -m venv venv-py
-    . venv-py/bin/activate
-    pip3 install -e .[testpy]./p
-    ./tests/py/live_test_generate_jsonable.py
+Contributing
+============
+All contributions are highly welcome. Please consult this
+`page <https://mapry.readthedocs.io/en/latest/contributing/index.html>`_
+in the documentation to see how you can contribute.
 
 Versioning
 ==========

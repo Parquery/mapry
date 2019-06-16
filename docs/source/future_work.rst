@@ -1,0 +1,99 @@
+Future Work
+===========
+
+While Mapry satisfies very well many of our practical needs, there are
+countless possible improvement vectors. If you feel strong about any of
+the listed improvements (or you have another one in mind), please
+`create an issue <https://github.com/Parquery/mapry/issues/new>`_ and
+help us discuss it.
+
+**New primitive types**. We tried to devise a practical set of primitive types
+that covers most use cases. However, we do not know our (existing or potential)
+user base and our assumptions on what is necessary might be wrong.
+
+**New aggergated types**. So far, we introduced only arrays and maps as
+aggregated types since they are JSON-native.
+
+While JSON does not support aggregated types such as sets, the sets are at the
+core of many data models and would definitely merit a representation in Mapry.
+Please let us know your opinion about what would be a conventional way of
+representing sets in JSON.
+
+**Elaborate composite type system**. We limited the composite type system to a
+graph, classes and embeddable structures for simplicity following Go's approach
+(lack of inheritance, tuples and unions by design). We find that optional
+properties cover most of the use cases which are also covered by inheritance,
+tuples or unions. Hence, we thought that having optional properties is enough
+and did not want to complicate further the type system.
+
+Please feel free to convince us of the contrary and tell us how inheritance,
+tuples or unions should be handled. In particular, we do not really know what
+would be a conventional way of dealing with such a type system in Go.
+
+Moreover, it is not clear to us how to deal with variance in aggregated types
+(covariance, contravariance or invariance) since different languages follow
+different approaches. For example, C++ ``std::list`` and Python's ``List`` are
+invariant (*e.g.,* ``std::list<Employee>`` can not pass as
+``std::list<Person>``), while Python ``Sequence`` is covariant (at least in
+`mypy generics <https://mypy.readthedocs.io/en/latest/generics.html#variance-of-generic-types>`_).
+Admittedly, we are a bit lost how to approach this issue
+and are open to suggestions.
+
+**Better data constraints**. We are convinced that constraints (such as min/max
+ranges) make data structures more maintainable and prevent many of the errors
+early. However, Mapry's current constraints are quite limited and probably need
+extensions. Please let us know which constraints you would need and how you
+would like to specify them.
+
+Unfortunately, we can support only the most basic constraints. We do not have
+the time resources to include a declarative or imperative constraint language
+that would automatically compile into the generated code. Notwithstanding the
+lack of time, we strongly believe that such a language would be beneficial and
+are open for cooperation if you think you could help us tackle that challenge.
+
+**Efficiency of de/serialization**. Mapry was optimized for readability of
+generated code rather than the efficiency of de/serialization. Multiple
+improvements are possible here.
+
+Obviously, the generated de/serialization code could be optimized
+while still maintaining the readability. Please let us know which practical
+bottlenecks you experienced so that we know where/how to focus our optimization
+efforts.
+
+Since Mapry does not depend on the source of the JSONable data, you can already
+use faster JSON-parsing libraries (*e.g.*,
+`fastjson (Go) <https://github.com/valyala/fastjson>`_ or
+`orjson (Python) <https://pypi.org/project/orjson/>`_). However, in C++ setting
+where no standard JSONable structure exists, we could introduce
+an additional code generator based on faster JSON-parsing libraries such as
+`rapidjson <http://rapidjson.org/>`_.
+
+**Fast de/serialization of character streams**. Instead of operating
+on JSONable structures which are wasteful of memory and computational resources,
+we could generate de/serialization code that operates on streams of characters.
+Since schema is known, we could exploit that knowledge to make code
+work in one pass, be frugal in memory (*e.g.*, consume only as much memory as is
+necessary to hold the object graph) and be extremely fast (since the data types
+are known in advance).
+
+Additionally, when the language is slow (*e.g.*, Python), the code can be made
+even faster by generating it in the most efficient language (*e.g.*, C) together
+with a wrapper in the original language.
+
+For an example of such an approach based on schema knowledge, see
+`easyjson (Go) <https://github.com/mailru/easyjson>`_.
+
+**Improve readability of generated code**. While we find the generated code
+readable, the readability lies in the eye of the beholder. Please let us know
+which spots were hard for you to parse and how we could improve them.
+
+**Runtime checks at serialization**. We designed Mapry to perform runtime
+validation checks only at deserialization since we envisioned its main input
+to be generated by humans. However, if you construct an object graph
+programmatically, you need to serialize it and then deserialize it in order to
+validate the contracts. While this works in cases with small data, it would be
+computationally wasteful on large object graphs.
+
+We are thinking about introducing validation at serialization as well (triggered
+by a dedicated flag argument). Please let us know if you miss this functionality
+and what would you like to have covered.

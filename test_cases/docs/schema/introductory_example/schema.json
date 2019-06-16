@@ -1,0 +1,56 @@
+{
+  "name": "Pipeline",
+  "description": "defines an address book.",
+  "cpp": {
+    "namespace": "book::address",
+    "path_as": "boost::filesystem::path",
+    "optional_as": "std::experimental::optional",
+    "datetime_library": "ctime"
+  },
+  "go": {
+    "package": "address"
+  },
+  "py": {
+    "module_name": "book.address",
+    "path_as": "pathlib.Path",
+    "timezone_as": "pytz.timezone"
+  },
+  "classes": [
+    {
+      "name": "Person",
+      "description": "defines a contactable person.",
+      "properties": {
+        "full_name": {
+          "type": "string",
+          "description": "gives the full name (including middle names)."
+        },
+        "birthday": {
+          "type": "date",
+          "description": "indicates the birthday in UTC."
+        },
+        "address": {
+          "type": "Address",
+          "description": "notes where the person lives."
+        }
+      }
+    }
+  ],
+  "embeds": [
+    {
+      "name": "Address",
+      "description": "defines an address.",
+      "properties": {
+        "text": {
+          "type": "string",
+          "description": "gives the full address."
+        }
+      }
+    }
+  ],
+  "properties": {
+    "maintainer": {
+      "type": "Person",
+      "description": "indicates the maintainer of the address book."
+    }
+  }
+}

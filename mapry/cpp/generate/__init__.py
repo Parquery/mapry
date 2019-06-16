@@ -69,10 +69,10 @@ def type_repr(a_type: mapry.Type, cpp: mapry.Cpp) -> str:
                 "Unhandled datetime library: {}".format(cpp.datetime_library))
 
     elif isinstance(a_type, mapry.Time):
-        if cpp.datetime_library == 'date.h':
-            return "date::time_of_day<std::chrono::seconds>"
-        elif cpp.datetime_library == 'ctime':
+        if cpp.datetime_library == 'ctime':
             return "struct tm"
+        elif cpp.datetime_library == 'date.h':
+            return "date::time_of_day<std::chrono::seconds>"
         else:
             raise NotImplementedError(
                 "Unhandled datetime library: {}".format(cpp.datetime_library))
@@ -87,10 +87,10 @@ def type_repr(a_type: mapry.Type, cpp: mapry.Cpp) -> str:
                 "Unhandled datetime library: {}".format(cpp.datetime_library))
 
     elif isinstance(a_type, mapry.TimeZone):
-        if cpp.datetime_library == 'date.h':
-            return "const date::time_zone*"
-        elif cpp.datetime_library == 'ctime':
+        if cpp.datetime_library == 'ctime':
             return "std::string"
+        elif cpp.datetime_library == 'date.h':
+            return "const date::time_zone*"
         else:
             raise NotImplementedError(
                 "Unhandled datetime library: {}".format(cpp.datetime_library))

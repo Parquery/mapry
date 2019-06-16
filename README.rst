@@ -42,18 +42,18 @@ and objects/maps). We found that most of our data relied on
 **a richer set of primitives** than was provided by a standard JSON. This
 extended set includes:
 
- * date,
- * datetime,
- * time of day,
- * time zone,
- * duration and
- * path.
+* date,
+* datetime,
+* time of day,
+* time zone,
+* duration and
+* path.
 
 While there exist polyglot serializers of object trees (*e.g.*,
 `Protocol Buffers <https://developers.google.com/protocol-buffers/>`_),
 language-specific serializers of object graphs (*e.g.,*
-`Gob (Go) <https://golang.org/pkg/encoding/gob/>`_ or
-`Pickle (Python) <https://docs.python.org/3/library/pickle.html>`_) or polyglot
+`Gob in Go <https://golang.org/pkg/encoding/gob/>`_ or
+`Pickle in Python <https://docs.python.org/3/library/pickle.html>`_) or polyglot
 ones with a limited set of primitives (*e.g.,*
 `Flatbuffers <https://google.github.io/flatbuffers/>`_), to the best of our
 knowledge there is currently no serializer of **object graphs** that operates

@@ -226,7 +226,8 @@ nanoseconds as ``int64`` (see
 `time.Duration <https://golang.org/pkg/time/#Duration>`_).
 
 Mapry will parse the duration strings into ``time.Duration``. Similar to
-problems in C++ generated code (see :ref:`cpp_specifics:Durations`),
+problems in C++ generated code (see
+:ref:`Durations in C++ <cpp_specifics:Durations>`),
 ``time.Duration`` can not capture all the strings representable by ISO 8601
 period strings. Number of nanoseconds are limited by the range of ``int64`` and
 can not span periods as short as 300 years (``PY300``). Furthermore, periods

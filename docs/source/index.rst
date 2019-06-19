@@ -10,6 +10,7 @@ Welcome to Mapry's documentation!
     :maxdepth: 2
     :caption: Contents:
 
+    introduction
     design_decisions
     schema
     cpp_specifics

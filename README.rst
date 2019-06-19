@@ -243,7 +243,7 @@ build system), install it with pip:
 Contributing
 ============
 All contributions are highly welcome. Please consult this
-`page <https://mapry.readthedocs.io/en/latest/contributing/index.html>`_
+`page <https://mapry.readthedocs.io/en/latest/contributing.html>`_
 in the documentation to see how you can contribute.
 
 Versioning
@@ -257,3 +257,40 @@ The version W.X.Y.Z indicates:
 * Y is the minor version (library interface is extended, but
   backward-compatible), and
 * Z is the patch version (backward-compatible bug fix).
+
+Related Projects
+================
+We compiled an extensive list of related projects and how they compare to Mapry
+in the
+`documentation <https://mapry.readthedocs.io/en/latest/related_projects.html>`_.
+
+We present here only the most prominent projects and their main differences
+to Mapry:
+
+Standard JSON libraries
+    support only object *trees*, not graphs. They usually lack a schema (*e.g.,*
+    `json module in Python <https://docs.python.org/3/library/json.html>`_).
+
+De/serializers based on annotations
+    handle object graphs through custom logic (*e.g.,*
+    `Jackson in Java <https://github.com/FasterXML/jackson>`_). Since they are
+    based on annotations in source code, a polyglot code base would require
+    a duplication across different languages which can be cumbersom and
+    error-prone to synchronize.
+
+Standard or widely used serialization libraries
+    handle well object graphs and rich set of primitives. However, it would be
+    very difficult to keep up the serialization format across languages (*e.g.*,
+    `Boost.Serialization in C++
+     <https://www.boost.org/doc/libs/1_70_0/libs/serialization/doc/index.html>`_
+    or `Pickle in Python <https://docs.python.org/3/library/pickle.html>`_
+    would need to be supported in Go).
+
+Popular serializers based on generated code
+    usually do not de/serialize object graphs, but only object trees (*e.g.,*
+    `Protocol Buffers <https://developers.google.com/protocol-buffers/>`_ or
+    `Cap'n Proto <https://capnproto.org/>`_).
+
+    `Flatbuffers <https://google.github.io/flatbuffers/>`_ being the exception
+    handle object graphs natively, but lack support sophisticated types such as
+    maps and datetimes, durations *etc.*

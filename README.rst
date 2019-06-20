@@ -275,7 +275,7 @@ De/serializers based on annotations
     handle object graphs through custom logic (*e.g.,*
     `Jackson in Java <https://github.com/FasterXML/jackson>`_). Since they are
     based on annotations in source code, a polyglot code base would require
-    a duplication across different languages which can be cumbersom and
+    a duplication across different languages which can be cumbersome and
     error-prone to synchronize.
 
 Standard or widely used serialization libraries

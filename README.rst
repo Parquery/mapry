@@ -166,8 +166,34 @@ Here is an example schema to give you an overview:
       }
     }
 
-Once you generated the de/serialization code with Mapry, you can use it,
-for example, in Python:
+Once you generated the de/serialization code with Mapry, you can use it
+to obtain the object graph from a JSONable.
+
+For example, assume a JSONable stored in ``/path/to/the/file.json``:
+
+.. code-block:: json
+
+    {
+      "persons": {
+        "alice": {
+          "full_name": "Alice Doe",
+          "birthday": "1983-10-24",
+          "address": {
+            "text": "Some street 12, Some City, Some Country"
+          }
+        },
+        "bob": {
+          "full_name": "Bob Johnson",
+          "birthday": "2016-07-03",
+          "address": {
+            "text": "Another street 36, Another City, Another Country"
+          }
+        }
+      },
+      "maintainer": "alice"
+    } 
+
+You can parse the object graph in, say, Python:
 
 .. code-block:: Python
 
@@ -190,18 +216,23 @@ for example, in Python:
 
         return 1
 
-You can access the object graph ``pipeline``:
+and access the object graph as ``pipeline``:
 
 .. code-block:: Python
 
-    print('Maintainers are:')
-    for maintainer in pipeline.maintainers:
-        print('{} (address: {}, birthday: {})'.format(
-            maintainer.full_name,
-            maintainer.address.text,
-            maintainer.birthday.strftime("%d.%m.%Y")))
+    print('Persons are:')
+    for person in pipeline.persons:
+        print('{} (full name: {}, address: {}, birthday: {})'.format(
+            person.id,
+            person.full_name,
+            person.address.text,
+            person.birthday.strftime("%d.%m.%Y")))
 
-The full generated code can be accessed for this schema in
+    print('The maintainer is: {}'.format(
+        pipeline.maintainer.id))
+
+
+The full generated code for this schema is available in
 `C++ <https://github.com/Parquery/mapry/blob/master/test_cases/docs/schema/introductory_example/cpp/test_generate>`_,
 `Go <https://github.com/Parquery/mapry/blob/master/test_cases/docs/schema/introductory_example/py/test_generate>`_ and
 `Python <https://github.com/Parquery/mapry/blob/master/test_cases/docs/schema/introductory_example/py/test_generate>`_.

@@ -294,8 +294,7 @@ De/serializers based on annotations
 Standard or widely used serialization libraries
     handle well object graphs and rich set of primitives. However, it would be
     very difficult to keep up the serialization format across languages (*e.g.*,
-    `Boost.Serialization in C++
-     <https://www.boost.org/doc/libs/1_70_0/libs/serialization/doc/index.html>`_
+    `Boost.Serialization in C++ <https://www.boost.org/doc/libs/1_70_0/libs/serialization/doc/index.html>`_
     or `Pickle in Python <https://docs.python.org/3/library/pickle.html>`_
     would need to be supported in Go).
 

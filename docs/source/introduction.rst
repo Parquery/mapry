@@ -50,7 +50,20 @@ The code is generated based on the schema. You define schema once and
 generate code in all the supported languages automatically. Schemas can be
 evolved and backward compatibility is supported through optional properties.
 
-**Supported languages**. Currently, Mapry speaks C++11, Go 1 and Python 3.
+Supported languages
+-------------------
+Currently, Mapry speaks:
+
+* C++11, 
+* Go 1 and 
+* Python 3.
+
 Since the serialization needs to operate in different languages, only the
 intersection of language features is supported. For example, since Go does not
 support inheritance or union types, they are not supported in Mapry either.
+
+Workflow
+--------
+The following diagram illustrates the workflow.
+
+.. image:: https://raw.githubusercontent.com/Parquery/mapry/master/diagram.png

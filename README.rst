@@ -1,4 +1,4 @@
-.. image:: https://raw.githubusercontent.com/Parquery/mapry/master/logo-small.png
+.. image:: https://raw.githubusercontent.com/Parquery/mapry/master/logo-640x320.png
    :alt: Mapry
 
 .. image:: https://travis-ci.com/Parquery/mapry.svg?branch=master

@@ -1,3 +1,5 @@
+.. image:: https://raw.githubusercontent.com/Parquery/mapry/master/logo.png
+
 Mapry
 =====
 

@@ -1,7 +1,5 @@
-.. image:: https://raw.githubusercontent.com/Parquery/mapry/master/logo.png
-
-Mapry
-=====
+.. image:: https://raw.githubusercontent.com/Parquery/mapry/master/logo-small.png
+   :alt: Mapry
 
 .. image:: https://travis-ci.com/Parquery/mapry.svg?branch=master
     :target: https://travis-ci.com/Parquery/mapry

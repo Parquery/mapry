@@ -98,7 +98,7 @@ Introduction
 
 Let us introduce Mapry here by presenting a short example to give you a first
 impression how to use the generator. To get the full picture, please consult the
-`documentation <https://mapry.readthedocs.io/en/latest/>`_.
+`documentation <https://mapry.readthedocs.io/en/latest/>`__.
 
 The schema starts with the name and a description, followed by the
 language-specific settings (specifying the non-standard parts of the code
@@ -306,7 +306,7 @@ Related Projects
 ================
 We compiled an extensive list of related projects and how they compare to Mapry
 in the
-`documentation <https://mapry.readthedocs.io/en/latest/related_projects.html>`_.
+`documentation <https://mapry.readthedocs.io/en/latest/related_projects.html>`__.
 
 We present here only the most prominent projects and their main differences
 to Mapry:

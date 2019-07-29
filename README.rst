@@ -34,12 +34,12 @@ among each other -- instead of object trees we needed **object graphs**.
 
 Moreover, we wanted the serialization itself to be **readable** so that an
 operator can edit it using a simple text editor. JSONable structure offered
-itself as a good fit there with a lot of existing assistance tools (JSON and
+itself as a good fit with a lot of existing tools (JSON and
 YAML modules *etc*.).
 
 However, JSON allows only a limited set of data types (numbers, strings, arrays
 and objects/maps). We found that most of our data relied on
-**a richer set of primitives** than was provided by a standard JSON. This
+**a richer set of primitives** than provided by standard JSON. This
 extended set includes:
 
 * date,
@@ -65,13 +65,13 @@ for object graphs from JSONable structures.
 
 The **schema** of the object graph is stored in a separate JSON file and defines
 all the data types used in the object graph including the object graph itself.
-The code is generated based on the schema. You define schema once and
-generate code in all the supported languages automatically. Schemas can be
+The code is generated based on the schema. You define the schema once and
+generate code in all supported languages automatically. Schemas can be
 evolved and backward compatibility is supported through optional properties.
 
 Supported languages
 -------------------
-Currently, Mapry speaks: 
+Currently, Mapry implements the following language bindings:
 
 * C++11, 
 * Go 1 and 
@@ -96,13 +96,13 @@ found `here <https://mapry.readthedocs.io/en/latest/>`_.
 Introduction
 ============
 
-Let us introduce Mapry here by presenting a short example to give you a first
-impression how to use the generator. To get the full picture, please consult the
+Let us introduce Mapry here by presenting a short example in order to give you a first
+impression on how the generator can be used. To get the full picture, please consult the
 `documentation <https://mapry.readthedocs.io/en/latest/>`__.
 
 The schema starts with the name and a description, followed by the
 language-specific settings (specifying the non-standard parts of the code
-generation), defines the graph structures and finally defines the properties of
+generation), the definition of the graph structure and finally the definition of the properties of
 the object graph itself.
 
 Here is an example schema to give you an overview:
@@ -232,7 +232,7 @@ and access the object graph as ``pipeline``:
         pipeline.maintainer.id))
 
 
-The full generated code for this schema is available in
+The generated code for this schema is can be downloaded for
 `C++ <https://github.com/Parquery/mapry/blob/master/test_cases/docs/schema/introductory_example/cpp/test_generate>`_,
 `Go <https://github.com/Parquery/mapry/blob/master/test_cases/docs/schema/introductory_example/py/test_generate>`_ and
 `Python <https://github.com/Parquery/mapry/blob/master/test_cases/docs/schema/introductory_example/py/test_generate>`_.
@@ -240,7 +240,7 @@ The full generated code for this schema is available in
 Usage
 =====
 
-Mapry provides a single point-of-entry for all the code generation through
+Mapry provides a single point-of-entry for all code generation through
 ``mapry-to`` command.
 
 To generate the code in different languages, invoke:
@@ -320,11 +320,11 @@ De/serializers based on annotations
     `Jackson in Java <https://github.com/FasterXML/jackson>`_). Since they are
     based on annotations in source code, a polyglot code base would require
     a duplication across different languages which can be cumbersome and
-    error-prone to synchronize.
+    error-prone to keep synchronized.
 
 Standard or widely used serialization libraries
-    handle well object graphs and rich set of primitives. However, it would be
-    very difficult to keep up the serialization format across languages (*e.g.*,
+    handle object graphs well and provide a rich set of primitives. However, the serialization
+    format differs accross languagues (*e.g.*,
     `Boost.Serialization in C++ <https://www.boost.org/doc/libs/1_70_0/libs/serialization/doc/index.html>`_
     or `Pickle in Python <https://docs.python.org/3/library/pickle.html>`_
     would need to be supported in Go).
@@ -335,5 +335,5 @@ Popular serializers based on generated code
     `Cap'n Proto <https://capnproto.org/>`_).
 
     `Flatbuffers <https://google.github.io/flatbuffers/>`_ being the exception
-    handle object graphs natively, but lack support sophisticated types such as
+    handle object graphs natively, but lack support for sophisticated types such as
     maps and datetimes, durations *etc.*

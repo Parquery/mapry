@@ -232,7 +232,7 @@ and access the object graph as ``pipeline``:
         pipeline.maintainer.id))
 
 
-The generated code for this schema is can be downloaded for
+The generated code for this schema can be downloaded for
 `C++ <https://github.com/Parquery/mapry/blob/master/test_cases/docs/schema/introductory_example/cpp/test_generate>`_,
 `Go <https://github.com/Parquery/mapry/blob/master/test_cases/docs/schema/introductory_example/py/test_generate>`_ and
 `Python <https://github.com/Parquery/mapry/blob/master/test_cases/docs/schema/introductory_example/py/test_generate>`_.

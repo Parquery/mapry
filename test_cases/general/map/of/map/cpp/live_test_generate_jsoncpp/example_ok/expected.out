@@ -1,0 +1,9 @@
+{
+    "map_of_maps": 
+    {
+        "some_key": 
+        {
+            "another_key": true
+        }
+    }
+}

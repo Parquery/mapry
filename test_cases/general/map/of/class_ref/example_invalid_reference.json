@@ -1,0 +1,8 @@
+{
+  "empties": {
+    "some-empty": {}
+  },
+  "map_of_class_refs": {
+    "some-key": "some-non-existing-empty"
+  }
+}

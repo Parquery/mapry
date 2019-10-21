@@ -34,6 +34,7 @@ import (
     "fmt"
     "encoding/json"
     "os"
+    "path/filepath"
 
     {{ "parse_serialize/%s"|format(package)|escaped_str }}
 )
@@ -80,7 +81,7 @@ func main() {
             fmt.Fprintf(
                 os.Stderr,
                 "failed to read the file %s: %s\\n",
-                *path, err.Error())
+                filepath.Base(*path), err.Error())
             return 1
         }
 
@@ -320,7 +321,7 @@ def execute_case(case: Case, gopath: pathlib.Path) -> None:
 
         elif expected_err != err:
             raise AssertionError(
-                "Expected stderr ({}): {!r}, got: {!r}".format(
+                "Expected stderr ({}):\n     {!r},\ngot: {!r}".format(
                     expected_err_pth, expected_err, err))
 
         else:

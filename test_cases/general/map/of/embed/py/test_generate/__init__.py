@@ -7,8 +7,19 @@
 import typing
 
 
-class Empty:
-    """defines an embeddable structure without properties."""
+class SomeEmbed:
+    """defines an embeddable structure."""
+
+    def __init__(
+            self,
+            some_property: bool) -> None:
+        """
+        initializes an instance of SomeEmbed with the given values.
+
+        :param some_property: defines a boolean property.
+
+        """
+        self.some_property = some_property
 
 
 class SomeGraph:
@@ -16,7 +27,7 @@ class SomeGraph:
 
     def __init__(
             self,
-            map_of_embeds: typing.MutableMapping[str, Empty]) -> None:
+            map_of_embeds: typing.MutableMapping[str, SomeEmbed]) -> None:
         """
         initializes an instance of SomeGraph with the given values.
 

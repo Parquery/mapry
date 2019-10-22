@@ -29,17 +29,17 @@ void some_graph_from(
   parse::Errors* errors);
 
 /**
- * parses Empty from a JSON value.
+ * parses SomeEmbed from a JSON value.
  *
  * @param [in] value to be parsed
  * @param ref reference to the value (e.g., a reference path)
  * @param [out] target parsed data
  * @param [out] errors encountered during parsing
  */
-void empty_from(
+void someembed_from(
   const Json::Value& value,
   std::string ref,
-  Empty* target,
+  SomeEmbed* target,
   parse::Errors* errors);
 
 
@@ -53,13 +53,13 @@ Json::Value serialize_some_graph(
   const SomeGraph& some_graph);
 
 /**
- * serializes Empty to a JSON value.
+ * serializes SomeEmbed to a JSON value.
  *
- * @param empty to be serialized
+ * @param someembed to be serialized
  * @return JSON value
  */
-Json::Value serialize_empty(
-  const Empty& empty);
+Json::Value serialize_someembed(
+  const SomeEmbed& someembed);
 
 }  // namespace jsoncpp
 

@@ -66,9 +66,9 @@ class Errors:
         return iter(self._values)
 
 
-def placeholder_empty() -> some.graph.Empty:
+def placeholder_someembed() -> some.graph.SomeEmbed:
     """
-    creates a placeholder instance of Empty.
+    creates a placeholder instance of SomeEmbed.
 
     Placeholders are necessary so that we can pre-allocate class registries
     during parsing. All the attribute of the placeholder are set to None.
@@ -76,7 +76,8 @@ def placeholder_empty() -> some.graph.Empty:
 
     :return: empty shell
     """
-    return some.graph.Empty()
+    return some.graph.SomeEmbed(  # type: ignore
+        some_property=None)
 
 
 def placeholder_some_graph() -> some.graph.SomeGraph:

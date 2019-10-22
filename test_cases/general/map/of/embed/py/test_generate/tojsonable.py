@@ -10,14 +10,14 @@ import typing
 import some.graph
 
 
-def serialize_empty(
-        instance: some.graph.Empty,
+def serialize_someembed(
+        instance: some.graph.SomeEmbed,
         ordered: bool = False
 ) -> typing.MutableMapping[str, typing.Any]:
     """
-    serializes an instance of Empty to a JSONable representation.
+    serializes an instance of SomeEmbed to a JSONable representation.
 
-    :param instance: the instance of Empty to be serialized
+    :param instance: the instance of SomeEmbed to be serialized
     :param ordered:
         If set, represents the instance as a ``collections.OrderedDict``.
         Otherwise, it is represented as a ``dict``.
@@ -29,6 +29,12 @@ def serialize_empty(
         )  # type: typing.MutableMapping[str, typing.Any]
     else:
         target = dict()
+
+    ##
+    # Serialize some_property
+    ##
+
+    target['some_property'] = instance.some_property
 
     return target
 
@@ -65,7 +71,7 @@ def serialize_some_graph(
         target_0 = dict()
 
     for key_0, value_0 in instance.map_of_embeds.items():
-        target_0[key_0] = serialize_empty(value_0)
+        target_0[key_0] = serialize_someembed(value_0)
     target['map_of_embeds'] = target_0
 
     return target

@@ -11,21 +11,21 @@ import some.graph
 import some.graph.parse
 
 
-def _empty_from(
+def _someembed_from(
         value: typing.Any,
         ref: str,
-        target: some.graph.Empty,
+        target: some.graph.SomeEmbed,
         errors: some.graph.parse.Errors
 ) -> None:
     """
-    parses Empty from a JSONable value.
+    parses SomeEmbed from a JSONable value.
 
     If ``errors``, the attributes of ``target`` have undefined values.
 
     :param value: JSONable value
     :param ref:
         reference to the value (e.g., a reference path)
-    :param target: parsed ``value`` as Empty
+    :param target: parsed ``value`` as SomeEmbed
     :param errors: errors encountered during parsing
     :return:
 
@@ -37,14 +37,38 @@ def _empty_from(
                 type(value)))
         return
 
+    ##
+    # Parse some_property
+    ##
 
-def empty_from(
+    value_0 = value.get(
+        'some_property',
+        None)
+
+    if value_0 is None:
+        errors.add(
+            ref,
+            'Property is missing: some_property')
+    else:
+        if not isinstance(value_0, bool):
+            errors.add(
+                '/'.join((
+                    ref, 'some_property')),
+                "Expected a bool, but got: {}".format(
+                    type(value_0)))
+        else:
+            target.some_property = value_0
+    if errors.full():
+        return
+
+
+def someembed_from(
         value: typing.Any,
         ref: str,
         errors: some.graph.parse.Errors
-) -> typing.Optional[some.graph.Empty]:
+) -> typing.Optional[some.graph.SomeEmbed]:
     """
-    parses Empty from a JSONable value.
+    parses SomeEmbed from a JSONable value.
 
     :param value: JSONable value
     :param id: identifier of the instance
@@ -54,9 +78,9 @@ def empty_from(
     :return: parsed instance, or None if ``errors``
 
     """
-    target = some.graph.parse.placeholder_empty()
+    target = some.graph.parse.placeholder_someembed()
 
-    _empty_from(
+    _someembed_from(
         value=value,
         ref=ref,
         target=target,
@@ -115,7 +139,7 @@ def some_graph_from(
             if isinstance(value_0, collections.OrderedDict):
                 target_1 = (
                     collections.OrderedDict()
-                )  # type: typing.MutableMapping[str, some.graph.Empty]
+                )  # type: typing.MutableMapping[str, some.graph.SomeEmbed]
             else:
                 target_1 = (
                     dict()
@@ -136,11 +160,11 @@ def some_graph_from(
 
                 target_item_1 = (
                     None
-                )  # type: typing.Optional[some.graph.Empty]
+                )  # type: typing.Optional[some.graph.SomeEmbed]
                 target_2 = (
-                    some.graph.parse.placeholder_empty()
+                    some.graph.parse.placeholder_someembed()
                 )
-                _empty_from(
+                _someembed_from(
                     value_1,
                     '/'.join((
                         ref, 'map_of_embeds', repr(key_1))),

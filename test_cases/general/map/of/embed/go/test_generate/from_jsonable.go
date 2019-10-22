@@ -7,18 +7,18 @@ import (
 	"strings"
 )
 
-// EmptyFromJSONable parses Empty from a JSONable value.
+// SomeEmbedFromJSONable parses SomeEmbed from a JSONable value.
 //
 // If there are any errors, the state of the target is undefined.
 //
-// EmptyFromJSONable requires:
+// SomeEmbedFromJSONable requires:
 //  * target != nil
 //  * errors != nil
 //  * errors.Empty()
-func EmptyFromJSONable(
+func SomeEmbedFromJSONable(
 	value interface{},
 	ref string,
-	target *Empty,
+	target *SomeEmbed,
 	errors *Errors) {
 
 	if target == nil {
@@ -33,13 +33,44 @@ func EmptyFromJSONable(
 		panic("unexpected non-empty errors")
 	}
 
-	_, ok := value.(map[string]interface{})
+	cast, ok := value.(map[string]interface{})
 	if !ok {
 		errors.Add(
 			ref,
 			fmt.Sprintf(
 				"expected a map[string]interface{}, but got: %T",
 				value))
+		return
+	}
+
+	////
+	// Parse SomeProperty
+	////
+
+	value0, ok0 := cast[
+		"some_property"]
+
+	if !ok0 {
+		errors.Add(
+			ref,
+			"property is missing: some_property")
+	} else {
+		cast1, ok1 := value0.(bool)
+		if !ok1 {
+			errors.Add(
+				strings.Join(
+					[]string{
+						ref, "some_property"},
+					"/"),
+				fmt.Sprintf(
+					"expected a bool, but got: %T",
+					value0))
+		} else {
+			target.SomeProperty = cast1
+		}
+	}
+
+	if errors.Full() {
 		return
 	}
 
@@ -105,10 +136,10 @@ func SomeGraphFromJSONable(
 					"expected a map[string]interface{}, but got: %T",
 					value0))
 		} else {
-			target1 := make(map[string]Empty)
+			target1 := make(map[string]SomeEmbed)
 			for k1 := range cast1 {
-				var item1 Empty
-				EmptyFromJSONable(
+				var item1 SomeEmbed
+				SomeEmbedFromJSONable(
 					cast1[k1],
 					strings.Join(
 						[]string{

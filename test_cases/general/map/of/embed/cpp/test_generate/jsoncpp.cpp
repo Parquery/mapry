@@ -106,10 +106,10 @@ void some_graph_from(
           value_type_to_string(
             value_0.type())));
     } else {
-      std::map<std::string, Empty>& target_0 = target->map_of_embeds;
+      std::map<std::string, SomeEmbed>& target_0 = target->map_of_embeds;
       for (Json::ValueConstIterator it_0 = value_0.begin(); it_0 != value_0.end(); ++it_0) {
         const Json::Value& value_1 = *it_0;
-        empty_from(
+        someembed_from(
           value_1,
           std::string(ref)
             .append("/map_of_embeds")
@@ -129,10 +129,10 @@ void some_graph_from(
   }
 }
 
-void empty_from(
+void someembed_from(
     const Json::Value& value,
     std::string ref,
-    Empty* target,
+    SomeEmbed* target,
     parse::Errors* errors) {
   if (not value.isObject()) {
     constexpr auto expected_but_got(
@@ -147,11 +147,45 @@ void empty_from(
           value.type())));
     return;
   }
+
+  ////
+  // Parse some_property
+  ////
+
+  if (not value.isMember("some_property")) {
+    errors->add(
+      ref,
+      "Property is missing: some_property");
+  } else {
+    const Json::Value& value_0 = value["some_property"];
+    if (not value_0.isBool()) {
+      constexpr auto expected_but_got(
+        "Expected a bool, but got: ");
+
+      errors->add(
+        std::string(ref)
+          .append("/some_property"),
+        message(
+          expected_but_got,
+          strlen(expected_but_got),
+          value_type_to_string(
+            value_0.type())));
+    } else {
+      target->some_property = value_0.asBool();
+    }
+  }
+  if (errors->full()) {
+    return;
+  }
 }
 
-Json::Value serialize_empty(
-    const Empty& empty) {
-  return Json::objectValue;
+Json::Value serialize_someembed(
+    const SomeEmbed& someembed) {
+  Json::Value someembed_as_value;
+
+  someembed_as_value["some_property"] = someembed.some_property;
+
+  return someembed_as_value;
 }
 
 Json::Value serialize_some_graph(
@@ -161,7 +195,7 @@ Json::Value serialize_some_graph(
   Json::Value target_0(Json::objectValue);
   const auto& map_0 = some_graph.map_of_embeds;
   for (const auto& kv_0 : map_0) {
-    target_0[kv_0.first] = serialize_empty(kv_0.second);
+    target_0[kv_0.first] = serialize_someembed(kv_0.second);
   }
   some_graph_as_value["map_of_embeds"] = std::move(target_0);
 

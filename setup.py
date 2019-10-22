@@ -58,7 +58,9 @@ setup(
             'conan>=1.13.0,<2',
             'temppathlib>=1.0.3,<2',
         ],
-        'testgo': [],
+        'testgo': [
+            'temppathlib>=1.0.3,<2',
+        ],
         'testpy': [
             'pytz==2018.9',
             'temppathlib>=1.0.3,<2',

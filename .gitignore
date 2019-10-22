@@ -3,6 +3,7 @@ venv/
 venv-cpp/
 venv-py/
 venv-doc/
+venv-go/
 .mypy_cache/
 .idea/
 *.pyc

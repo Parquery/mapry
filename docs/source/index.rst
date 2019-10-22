@@ -7,9 +7,10 @@ Welcome to Mapry's documentation!
 =================================
 
 .. toctree::
-    :maxdepth: 2
+    :maxdepth: 1
     :caption: Contents:
 
+    introduction
     design_decisions
     schema
     cpp_specifics

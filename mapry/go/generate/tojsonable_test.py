@@ -101,14 +101,20 @@ def generate(graph: mapry.Graph, go: mapry.Go) -> str:
         mapry.go.generate.WARNING,
     ]
 
+    has_body = False
+
     import_decl = _imports(graph=graph)
     if len(import_decl) > 0:
         blocks.append(import_decl)
+        has_body = True
 
     if mapry.needs_type(a_type=graph, query=mapry.Duration):
         blocks.append(_example_duration_to_string())
+        has_body = True
 
-    blocks.append(mapry.go.generate.WARNING)
+    # Include the footer only if there was something after the header
+    if has_body:
+        blocks.append(mapry.go.generate.WARNING)
 
     return mapry.indention.reindent(
         text='\n\n'.join(blocks) + '\n', indention='\t')

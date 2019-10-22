@@ -1,0 +1,1 @@
+#/map_of_booleans: expected a map[string]interface{}, but got: float64

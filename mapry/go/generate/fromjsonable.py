@@ -1057,6 +1057,13 @@ if !ok{{ uid }} {
 }
 ''')
 
+_PARSE_INTERMEDIATE_ITEM_OF_MAP_TPL = mapry.go.jinja2_env.ENV.from_string(
+    '''\
+var item{{ uid }} {{ item_go_type }}
+{{ intermediate_item_parsing }}
+target{{ uid }}[k{{ uid }}] = item{{ uid }}
+''')
+
 
 @ensure(lambda result: not result.endswith('\n'))
 def _parse_map(
@@ -1082,15 +1089,35 @@ def _parse_map(
     """
     uid = auto_id.next_identifier()
 
-    item_parsing = _parse_value(
-        value_expr="cast{uid}[k{uid}]".format(uid=uid),
-        target_expr="target{uid}[k{uid}]".format(uid=uid),
-        ref_parts=ref_parts + ["k{uid}".format(uid=uid)],
-        a_type=a_type.values,
-        registry_exprs=registry_exprs,
-        pattern_uids=pattern_uids,
-        auto_id=auto_id,
-        go=go)
+    if isinstance(a_type.values, mapry.Embed):
+        # Go does not allow taking addresses of map values.
+        # Hence, we need to first parse the item and then assign it.
+        intermediate_item_parsing = _parse_value(
+            value_expr="cast{uid}[k{uid}]".format(uid=uid),
+            target_expr="item{uid}".format(uid=uid),
+            ref_parts=ref_parts + ["k{uid}".format(uid=uid)],
+            a_type=a_type.values,
+            registry_exprs=registry_exprs,
+            pattern_uids=pattern_uids,
+            auto_id=auto_id,
+            go=go)
+
+        item_parsing = _PARSE_INTERMEDIATE_ITEM_OF_MAP_TPL.render(
+            uid=uid,
+            item_go_type=mapry.go.generate.type_repr(
+                a_type=a_type.values, go=go),
+            intermediate_item_parsing=intermediate_item_parsing)
+
+    else:
+        item_parsing = _parse_value(
+            value_expr="cast{uid}[k{uid}]".format(uid=uid),
+            target_expr="target{uid}[k{uid}]".format(uid=uid),
+            ref_parts=ref_parts + ["k{uid}".format(uid=uid)],
+            a_type=a_type.values,
+            registry_exprs=registry_exprs,
+            pattern_uids=pattern_uids,
+            auto_id=auto_id,
+            go=go)
 
     return _PARSE_MAP_TPL.render(
         value_expr=value_expr,

@@ -65,11 +65,11 @@ void some_graph_from(
     throw std::invalid_argument("Unexpected null errors");
   }
 
-  if (not errors->empty()) {
+  if (!errors->empty()) {
     throw std::invalid_argument("Unexpected non-empty errors");
   }
 
-  if (not value.isObject()) {
+  if (!value.isObject()) {
     constexpr auto expected_but_got(
       "Expected an object, but got: ");
 
@@ -87,13 +87,13 @@ void some_graph_from(
   // Parse some_float
   ////
 
-  if (not value.isMember("some_float")) {
+  if (!value.isMember("some_float")) {
     errors->add(
       ref,
       "Property is missing: some_float");
   } else {
     const Json::Value& value_0 = value["some_float"];
-    if (not value_0.isDouble()) {
+    if (!value_0.isDouble()) {
       constexpr auto expected_but_got(
         "Expected a double, but got: ");
 

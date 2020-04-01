@@ -67,11 +67,11 @@ void some_graph_from(
     throw std::invalid_argument("Unexpected null errors");
   }
 
-  if (not errors->empty()) {
+  if (!errors->empty()) {
     throw std::invalid_argument("Unexpected non-empty errors");
   }
 
-  if (not value.isObject()) {
+  if (!value.isObject()) {
     constexpr auto expected_but_got(
       "Expected an object, but got: ");
 
@@ -89,13 +89,13 @@ void some_graph_from(
   // Parse some_datetime
   ////
 
-  if (not value.isMember("some_datetime")) {
+  if (!value.isMember("some_datetime")) {
     errors->add(
       ref,
       "Property is missing: some_datetime");
   } else {
     const Json::Value& value_0 = value["some_datetime"];
-    if (not value_0.isString()) {
+    if (!value_0.isString()) {
       constexpr auto expected_but_got(
         "Expected a string, but got: ");
 
@@ -139,13 +139,13 @@ void some_graph_from(
   // Parse formatless_datetime
   ////
 
-  if (not value.isMember("formatless_datetime")) {
+  if (!value.isMember("formatless_datetime")) {
     errors->add(
       ref,
       "Property is missing: formatless_datetime");
   } else {
     const Json::Value& value_1 = value["formatless_datetime"];
-    if (not value_1.isString()) {
+    if (!value_1.isString()) {
       constexpr auto expected_but_got(
         "Expected a string, but got: ");
 

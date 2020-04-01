@@ -277,7 +277,7 @@ def _duration_from_string() -> str:
             std::smatch mtch;
             const bool matched = std::regex_match(s, mtch, re::kDuration);
 
-            if (not matched) {
+            if (!matched) {
                 std::stringstream sserr;
                 sserr << "failed to match the duration: " << s;
                 *error = sserr.str();
@@ -507,7 +507,7 @@ we don't end up with an unnecessary variable1 = variable2 statement.#}
 {% set value = "value_%s"|format(uid) %}
 const Json::Value& value_{{ uid }} = {{ value_expr }};
 {% endif %}
-if (not {{ value }}.isBool()) {
+if (!{{ value }}.isBool()) {
     constexpr auto expected_but_got(
         "Expected a bool, but got: ");
 
@@ -558,7 +558,7 @@ we don't end up with an unnecessary variable1 = variable2 statement.#}
 {% set value = "value_%s"|format(uid) %}
 const Json::Value& value_{{ uid }} = {{ value_expr }};
 {% endif %}{# /value_expr|is_variable #}
-if (not {{ value }}.isInt64()) {
+if (!{{ value }}.isInt64()) {
     constexpr auto expected_but_got(
         "Expected an int64, but got: ");
 
@@ -578,7 +578,7 @@ if (not {{ value }}.isInt64()) {
     {% if a_type.minimum is not none %}
 
     {% set op = ">" if a_type.exclusive_minimum else ">="  %}
-    if (not (cast_{{ uid }} {{ op }} {{ a_type.minimum }})) {
+    if (!(cast_{{ uid }} {{ op }} {{ a_type.minimum }})) {
         constexpr auto expected_but_got(
             "Expected "
             {{ "%s %d"|format(op, a_type.minimum)|escaped_str }}
@@ -596,7 +596,7 @@ if (not {{ value }}.isInt64()) {
     {% if a_type.maximum is not none %}
 
     {% set op = "<" if a_type.exclusive_maximum else "<=" %}
-    if (not (cast_{{ uid }} {{ op }} {{ a_type.maximum }})) {
+    if (!(cast_{{ uid }} {{ op }} {{ a_type.maximum }})) {
         constexpr auto expected_but_got(
             "Expected "
             {{ "%s %d"|format(op, a_type.maximum)|escaped_str }}
@@ -657,7 +657,7 @@ we don't end up with an unnecessary variable1 = variable2 statement.#}
 {% set value = "value_%s"|format(uid) %}
 const Json::Value& value_{{ uid }} = {{ value_expr }};
 {% endif %}
-if (not {{ value }}.isDouble()) {
+if (!{{ value }}.isDouble()) {
     constexpr auto expected_but_got(
         "Expected a double, but got: ");
 
@@ -677,7 +677,7 @@ if (not {{ value }}.isDouble()) {
     {% if a_type.minimum is not none %}
 
     {% set op = ">" if a_type.exclusive_minimum else ">="  %}
-    if (not (cast_{{ uid }} {{ op }} {{ a_type.minimum }})) {
+    if (!(cast_{{ uid }} {{ op }} {{ a_type.minimum }})) {
         constexpr auto expected_but_got(
             "Expected "
             {{ "%s %f"|format(op, a_type.minimum)|escaped_str }}
@@ -695,7 +695,7 @@ if (not {{ value }}.isDouble()) {
     {% if a_type.maximum is not none %}
 
     {% set op = "<" if a_type.exclusive_maximum else "<=" %}
-    if (not (cast_{{ uid }} {{ op }} {{ a_type.maximum }})) {
+    if (!(cast_{{ uid }} {{ op }} {{ a_type.maximum }})) {
         constexpr auto expected_but_got(
             "Expected "
             {{ "%s %f"|format(op, a_type.maximum)|escaped_str }}
@@ -755,7 +755,7 @@ we don't end up with an unnecessary variable1 = variable2 statement.#}
 {% set value = "value_%s"|format(uid) %}
 const Json::Value& value_{{ uid }} = {{ value_expr }};
 {% endif %}
-if (not {{ value }}.isString()) {
+if (!{{ value }}.isString()) {
     constexpr auto expected_but_got(
         "Expected a string, but got: ");
 
@@ -775,7 +775,7 @@ if (not {{ value }}.isString()) {
     const std::string cast_{{ uid }} = {{ value }}.asString();
     bool ok_{{ uid }} = true;
 
-    if (not std::regex_match(cast_{{ uid }}, regex_{{ uid }})) {
+    if (!std::regex_match(cast_{{ uid }}, regex_{{ uid }})) {
         constexpr auto expected_but_got(
             "Expected to match "
             {{ a_type.pattern.pattern|escaped_str }}
@@ -834,7 +834,7 @@ we don't end up with an unnecessary variable1 = variable2 statement.#}
 {% set value = "value_%s"|format(uid) %}
 const Json::Value& value_{{ uid }} = {{ value_expr }};
 {% endif %}
-if (not {{ value }}.isString()) {
+if (!{{ value }}.isString()) {
     constexpr auto expected_but_got(
         "Expected a string, but got: ");
 
@@ -867,7 +867,7 @@ if (not {{ value }}.isString()) {
     const std::string cast_{{ uid }} = {{ value }}.asString();
     bool ok_{{ uid }} = true;
 
-    if (not std::regex_match(cast_{{ uid }}, regex)) {
+    if (!std::regex_match(cast_{{ uid }}, regex)) {
         constexpr auto expected_but_got(
             "Expected to match "
             {{ a_type.pattern.pattern|escaped_str }}
@@ -928,7 +928,7 @@ we don't end up with an unnecessary variable1 = variable2 statement.#}
 {% set value = "value_%s"|format(uid) %}
 const Json::Value& value_{{ uid }} = {{ value_expr }};
 {% endif %}
-if (not {{ value }}.isString()) {
+if (!{{ value }}.isString()) {
     constexpr auto expected_but_got(
         "Expected a string, but got: ");
 
@@ -975,7 +975,7 @@ we don't end up with an unnecessary variable1 = variable2 statement.#}
 {% set value = "value_%s"|format(uid) %}
 const Json::Value& value_{{ uid }} = {{ value_expr }};
 {% endif %}
-if (not {{ value }}.isString()) {
+if (!{{ value }}.isString()) {
     constexpr auto expected_but_got(
         "Expected a string, but got: ");
 
@@ -1099,7 +1099,7 @@ we don't end up with an unnecessary variable1 = variable2 statement.#}
 {% set value = "value_%s"|format(uid) %}
 const Json::Value& value_{{ uid }} = {{ value_expr }};
 {% endif %}
-if (not {{ value }}.isString()) {
+if (!{{ value }}.isString()) {
     constexpr auto expected_but_got(
         "Expected a string, but got: ");
 
@@ -1189,7 +1189,7 @@ we don't end up with an unnecessary variable1 = variable2 statement.#}
 {% set value = "value_%s"|format(uid) %}
 const Json::Value& value_{{ uid }} = {{ value_expr }};
 {% endif %}
-if (not {{ value }}.isString()) {
+if (!{{ value }}.isString()) {
     constexpr auto expected_but_got(
         "Expected a string, but got: ");
 
@@ -1215,7 +1215,7 @@ we don't end up with an unnecessary variable1 = variable2 statement.#}
 {% set value = "value_%s"|format(uid) %}
 const Json::Value& value_{{ uid }} = {{ value_expr }};
 {% endif %}
-if (not {{ value }}.isString()) {
+if (!{{ value }}.isString()) {
     constexpr auto expected_but_got(
         "Expected a string, but got: ");
 
@@ -1295,7 +1295,7 @@ we don't end up with an unnecessary variable1 = variable2 statement.#}
 {% set value = "value_%s"|format(uid) %}
 const Json::Value& value_{{ uid }} = {{ value_expr }};
 {% endif %}
-if (not {{ value }}.isString()) {
+if (!{{ value }}.isString()) {
     constexpr auto expected_but_got(
         "Expected a string, but got: ");
 
@@ -1312,7 +1312,7 @@ if (not {{ value }}.isString()) {
     std::chrono::nanoseconds cast_{{ uid }} = duration_from_string(
         cast_{{ uid }}_str, &error_{{ uid }});
 
-    if (not error_{{ uid }}.empty()) {
+    if (!error_{{ uid }}.empty()) {
         constexpr auto invalid_duration(
             "Invalid duration: ");
 
@@ -1378,7 +1378,7 @@ for (const Json::Value& item_{{ uid }} : {{ value }}) {
     }
 }
 {% endset %}
-if (not {{ value }}.isArray()) {
+if (!{{ value }}.isArray()) {
     constexpr auto expected_but_got(
         "Expected an array, but got: ");
 
@@ -1476,7 +1476,7 @@ we don't end up with an unnecessary variable1 = variable2 statement.#}
 {% set value = "value_%s"|format(uid) %}
 const Json::Value& value_{{ uid }} = {{ value_expr }};
 {% endif %}
-if (not {{ value }}.isObject()) {
+if (!{{ value }}.isObject()) {
     constexpr auto expected_but_got(
         "Expected an object, but got: ");
 
@@ -1552,7 +1552,7 @@ we don't end up with an unnecessary variable1 = variable2 statement.#}
 {% set value = "value_%s"|format(uid) %}
 const Json::Value& value_{{ uid }} = {{ value_expr }};
 {% endif %}
-if (not {{ value }}.isString()) {
+if (!{{ value }}.isString()) {
     constexpr auto expected_but_got(
         "Expected a string, but got: ");
 
@@ -1831,7 +1831,7 @@ _PARSE_PROPERTY_TPL = mapry.cpp.jinja2_env.ENV.from_string(
 ////
 
 {% if not a_property.optional %}
-if (not {{value_obj_expr}}.isMember({{a_property.json|escaped_str}})) {
+if (!{{value_obj_expr}}.isMember({{a_property.json|escaped_str}})) {
     errors->add(
         {{ ref_obj_parts|join_strings|indent|indent }},
         {{ "Property is missing: %s"|format(a_property.json)|escaped_str }});
@@ -1921,7 +1921,7 @@ void {{ composite.name|as_variable }}_from(
         std::string ref,
         {{ composite.name|as_composite }}* target,
         parse::Errors* errors) {
-    if (not value.isObject()) {
+    if (!value.isObject()) {
         constexpr auto expected_but_got(
             "Expected an object, but got: ");
 
@@ -1997,11 +1997,11 @@ void {{ graph.name|as_variable }}_from(
         throw std::invalid_argument("Unexpected null errors");
     }
 
-    if (not errors->empty()) {
+    if (!errors->empty()) {
         throw std::invalid_argument("Unexpected non-empty errors");
     }
 
-    if (not value.isObject()) {
+    if (!value.isObject()) {
         constexpr auto expected_but_got(
             "Expected an object, but got: ");
 
@@ -2030,7 +2030,7 @@ void {{ graph.name|as_variable }}_from(
     if (value.isMember({{ cls.plural|json_plural|escaped_str }})) {
         const Json::Value& obj = value[{{
             cls.plural|json_plural|escaped_str }}];
-        if (not obj.isObject()) {
+        if (!obj.isObject()) {
             constexpr auto expected_but_got(
                 "Expected an object, but got: ");
 
@@ -2051,7 +2051,7 @@ void {{ graph.name|as_variable }}_from(
                     cls.plural|as_field }}[it.name()] = std::move(instance);
                 {% endset %}
                 {% if cls.id_pattern is not none %}
-                if (not std::regex_match(
+                if (!std::regex_match(
                         it.name(),
                         {{ cls.name|as_variable }}_re::kID)) {
                     constexpr auto expected_but_got(
@@ -2083,7 +2083,7 @@ void {{ graph.name|as_variable }}_from(
 
     // Pre-allocating class instances is critical.
     // If the pre-allocation failed, we can not continue to parse the instances.
-    if (not errors->empty()) {
+    if (!errors->empty()) {
         return;
     }
 
@@ -2713,7 +2713,7 @@ Json::Value serialize_{{ graph.name|as_variable }}(
     {% endfor %}{# /for property_serializations #}
     {% for cls in graph.classes.values() %}
 
-    if (not {{ graph.name|as_variable }}.{{ cls.plural|as_variable }}.empty()) {
+    if (!{{ graph.name|as_variable }}.{{ cls.plural|as_variable }}.empty()) {
         Json::Value {{ cls.plural|as_variable }}_as_value;
         for (const auto& kv : {{
                 graph.name|as_variable }}.{{ cls.plural|as_variable }}) {

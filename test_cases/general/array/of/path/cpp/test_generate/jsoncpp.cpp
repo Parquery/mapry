@@ -65,11 +65,11 @@ void some_graph_from(
     throw std::invalid_argument("Unexpected null errors");
   }
 
-  if (not errors->empty()) {
+  if (!errors->empty()) {
     throw std::invalid_argument("Unexpected non-empty errors");
   }
 
-  if (not value.isObject()) {
+  if (!value.isObject()) {
     constexpr auto expected_but_got(
       "Expected an object, but got: ");
 
@@ -87,13 +87,13 @@ void some_graph_from(
   // Parse array_of_paths
   ////
 
-  if (not value.isMember("array_of_paths")) {
+  if (!value.isMember("array_of_paths")) {
     errors->add(
       ref,
       "Property is missing: array_of_paths");
   } else {
     const Json::Value& value_0 = value["array_of_paths"];
-    if (not value_0.isArray()) {
+    if (!value_0.isArray()) {
       constexpr auto expected_but_got(
         "Expected an array, but got: ");
 
@@ -110,7 +110,7 @@ void some_graph_from(
       target_0.resize(value_0.size());
       size_t i_0 = 0;
       for (const Json::Value& item_0 : value_0) {
-        if (not item_0.isString()) {
+        if (!item_0.isString()) {
           constexpr auto expected_but_got(
             "Expected a string, but got: ");
 

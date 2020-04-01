@@ -71,11 +71,11 @@ void some_graph_from(
     throw std::invalid_argument("Unexpected null errors");
   }
 
-  if (not errors->empty()) {
+  if (!errors->empty()) {
     throw std::invalid_argument("Unexpected non-empty errors");
   }
 
-  if (not value.isObject()) {
+  if (!value.isObject()) {
     constexpr auto expected_but_got(
       "Expected an object, but got: ");
 
@@ -100,7 +100,7 @@ void some_graph_from(
 
   if (value.isMember("empties")) {
     const Json::Value& obj = value["empties"];
-    if (not obj.isObject()) {
+    if (!obj.isObject()) {
       constexpr auto expected_but_got(
         "Expected an object, but got: ");
 
@@ -114,7 +114,7 @@ void some_graph_from(
     } else {
       for (Json::ValueConstIterator it = obj.begin();
           it != obj.end(); ++it) {
-        if (not std::regex_match(
+        if (!std::regex_match(
             it.name(),
             empty_re::kID)) {
           constexpr auto expected_but_got(
@@ -153,7 +153,7 @@ void some_graph_from(
 
   if (value.isMember("with_references")) {
     const Json::Value& obj = value["with_references"];
-    if (not obj.isObject()) {
+    if (!obj.isObject()) {
       constexpr auto expected_but_got(
         "Expected an object, but got: ");
 
@@ -177,7 +177,7 @@ void some_graph_from(
 
   // Pre-allocating class instances is critical.
   // If the pre-allocation failed, we can not continue to parse the instances.
-  if (not errors->empty()) {
+  if (!errors->empty()) {
     return;
   }
 
@@ -266,13 +266,13 @@ void some_graph_from(
   // Parse global_reference_to_an_empty
   ////
 
-  if (not value.isMember("global_reference_to_an_empty")) {
+  if (!value.isMember("global_reference_to_an_empty")) {
     errors->add(
       ref,
       "Property is missing: global_reference_to_an_empty");
   } else {
     const Json::Value& value_0 = value["global_reference_to_an_empty"];
-    if (not value_0.isString()) {
+    if (!value_0.isString()) {
       constexpr auto expected_but_got(
         "Expected a string, but got: ");
 
@@ -314,7 +314,7 @@ void empty_from(
     std::string ref,
     Empty* target,
     parse::Errors* errors) {
-  if (not value.isObject()) {
+  if (!value.isObject()) {
     constexpr auto expected_but_got(
       "Expected an object, but got: ");
 
@@ -335,7 +335,7 @@ void with_reference_from(
     std::string ref,
     WithReference* target,
     parse::Errors* errors) {
-  if (not value.isObject()) {
+  if (!value.isObject()) {
     constexpr auto expected_but_got(
       "Expected an object, but got: ");
 
@@ -353,13 +353,13 @@ void with_reference_from(
   // Parse reference_to_an_empty
   ////
 
-  if (not value.isMember("reference_to_an_empty")) {
+  if (!value.isMember("reference_to_an_empty")) {
     errors->add(
       ref,
       "Property is missing: reference_to_an_empty");
   } else {
     const Json::Value& value_0 = value["reference_to_an_empty"];
-    if (not value_0.isString()) {
+    if (!value_0.isString()) {
       constexpr auto expected_but_got(
         "Expected a string, but got: ");
 
@@ -399,13 +399,13 @@ void with_reference_from(
   // Parse array_of_empties
   ////
 
-  if (not value.isMember("array_of_empties")) {
+  if (!value.isMember("array_of_empties")) {
     errors->add(
       ref,
       "Property is missing: array_of_empties");
   } else {
     const Json::Value& value_1 = value["array_of_empties"];
-    if (not value_1.isArray()) {
+    if (!value_1.isArray()) {
       constexpr auto expected_but_got(
         "Expected an array, but got: ");
 
@@ -422,7 +422,7 @@ void with_reference_from(
       target_1.resize(value_1.size());
       size_t i_1 = 0;
       for (const Json::Value& item_1 : value_1) {
-        if (not item_1.isString()) {
+        if (!item_1.isString()) {
           constexpr auto expected_but_got(
             "Expected a string, but got: ");
 
@@ -474,13 +474,13 @@ void with_reference_from(
   // Parse map_of_empties
   ////
 
-  if (not value.isMember("map_of_empties")) {
+  if (!value.isMember("map_of_empties")) {
     errors->add(
       ref,
       "Property is missing: map_of_empties");
   } else {
     const Json::Value& value_3 = value["map_of_empties"];
-    if (not value_3.isObject()) {
+    if (!value_3.isObject()) {
       constexpr auto expected_but_got(
         "Expected an object, but got: ");
 
@@ -496,7 +496,7 @@ void with_reference_from(
       std::map<std::string, Empty*>& target_3 = target->map_of_empties;
       for (Json::ValueConstIterator it_3 = value_3.begin(); it_3 != value_3.end(); ++it_3) {
         const Json::Value& value_4 = *it_3;
-        if (not value_4.isString()) {
+        if (!value_4.isString()) {
           constexpr auto expected_but_got(
             "Expected a string, but got: ");
 
@@ -579,7 +579,7 @@ Json::Value serialize_some_graph(
 
   some_graph_as_value["global_reference_to_an_empty"] = some_graph.global_reference_to_an_empty->id;
 
-  if (not some_graph.empties.empty()) {
+  if (!some_graph.empties.empty()) {
     Json::Value empties_as_value;
     for (const auto& kv : some_graph.empties) {
       const std::string& id = kv.first;
@@ -609,7 +609,7 @@ Json::Value serialize_some_graph(
     some_graph_as_value["empties"] = empties_as_value;
   }
 
-  if (not some_graph.with_references.empty()) {
+  if (!some_graph.with_references.empty()) {
     Json::Value with_references_as_value;
     for (const auto& kv : some_graph.with_references) {
       const std::string& id = kv.first;

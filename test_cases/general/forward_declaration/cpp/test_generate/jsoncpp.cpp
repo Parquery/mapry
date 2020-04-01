@@ -65,11 +65,11 @@ void some_graph_from(
     throw std::invalid_argument("Unexpected null errors");
   }
 
-  if (not errors->empty()) {
+  if (!errors->empty()) {
     throw std::invalid_argument("Unexpected non-empty errors");
   }
 
-  if (not value.isObject()) {
+  if (!value.isObject()) {
     constexpr auto expected_but_got(
       "Expected an object, but got: ");
 
@@ -94,7 +94,7 @@ void some_graph_from(
 
   if (value.isMember("some_classes")) {
     const Json::Value& obj = value["some_classes"];
-    if (not obj.isObject()) {
+    if (!obj.isObject()) {
       constexpr auto expected_but_got(
         "Expected an object, but got: ");
 
@@ -127,7 +127,7 @@ void some_graph_from(
 
   if (value.isMember("other_classes")) {
     const Json::Value& obj = value["other_classes"];
-    if (not obj.isObject()) {
+    if (!obj.isObject()) {
       constexpr auto expected_but_got(
         "Expected an object, but got: ");
 
@@ -151,7 +151,7 @@ void some_graph_from(
 
   // Pre-allocating class instances is critical.
   // If the pre-allocation failed, we can not continue to parse the instances.
-  if (not errors->empty()) {
+  if (!errors->empty()) {
     return;
   }
 
@@ -247,7 +247,7 @@ void some_class_from(
     std::string ref,
     SomeClass* target,
     parse::Errors* errors) {
-  if (not value.isObject()) {
+  if (!value.isObject()) {
     constexpr auto expected_but_got(
       "Expected an object, but got: ");
 
@@ -265,13 +265,13 @@ void some_class_from(
   // Parse reference_other
   ////
 
-  if (not value.isMember("reference_other")) {
+  if (!value.isMember("reference_other")) {
     errors->add(
       ref,
       "Property is missing: reference_other");
   } else {
     const Json::Value& value_0 = value["reference_other"];
-    if (not value_0.isString()) {
+    if (!value_0.isString()) {
       constexpr auto expected_but_got(
         "Expected a string, but got: ");
 
@@ -311,13 +311,13 @@ void some_class_from(
   // Parse array_of_others
   ////
 
-  if (not value.isMember("array_of_others")) {
+  if (!value.isMember("array_of_others")) {
     errors->add(
       ref,
       "Property is missing: array_of_others");
   } else {
     const Json::Value& value_1 = value["array_of_others"];
-    if (not value_1.isArray()) {
+    if (!value_1.isArray()) {
       constexpr auto expected_but_got(
         "Expected an array, but got: ");
 
@@ -334,7 +334,7 @@ void some_class_from(
       target_1.resize(value_1.size());
       size_t i_1 = 0;
       for (const Json::Value& item_1 : value_1) {
-        if (not item_1.isString()) {
+        if (!item_1.isString()) {
           constexpr auto expected_but_got(
             "Expected a string, but got: ");
 
@@ -386,13 +386,13 @@ void some_class_from(
   // Parse map_of_others
   ////
 
-  if (not value.isMember("map_of_others")) {
+  if (!value.isMember("map_of_others")) {
     errors->add(
       ref,
       "Property is missing: map_of_others");
   } else {
     const Json::Value& value_3 = value["map_of_others"];
-    if (not value_3.isObject()) {
+    if (!value_3.isObject()) {
       constexpr auto expected_but_got(
         "Expected an object, but got: ");
 
@@ -408,7 +408,7 @@ void some_class_from(
       std::map<std::string, OtherClass*>& target_3 = target->map_of_others;
       for (Json::ValueConstIterator it_3 = value_3.begin(); it_3 != value_3.end(); ++it_3) {
         const Json::Value& value_4 = *it_3;
-        if (not value_4.isString()) {
+        if (!value_4.isString()) {
           constexpr auto expected_but_got(
             "Expected a string, but got: ");
 
@@ -462,7 +462,7 @@ void other_class_from(
     std::string ref,
     OtherClass* target,
     parse::Errors* errors) {
-  if (not value.isObject()) {
+  if (!value.isObject()) {
     constexpr auto expected_but_got(
       "Expected an object, but got: ");
 
@@ -480,13 +480,13 @@ void other_class_from(
   // Parse reference_some
   ////
 
-  if (not value.isMember("reference_some")) {
+  if (!value.isMember("reference_some")) {
     errors->add(
       ref,
       "Property is missing: reference_some");
   } else {
     const Json::Value& value_0 = value["reference_some"];
-    if (not value_0.isString()) {
+    if (!value_0.isString()) {
       constexpr auto expected_but_got(
         "Expected a string, but got: ");
 
@@ -526,13 +526,13 @@ void other_class_from(
   // Parse array_of_somes
   ////
 
-  if (not value.isMember("array_of_somes")) {
+  if (!value.isMember("array_of_somes")) {
     errors->add(
       ref,
       "Property is missing: array_of_somes");
   } else {
     const Json::Value& value_1 = value["array_of_somes"];
-    if (not value_1.isArray()) {
+    if (!value_1.isArray()) {
       constexpr auto expected_but_got(
         "Expected an array, but got: ");
 
@@ -549,7 +549,7 @@ void other_class_from(
       target_1.resize(value_1.size());
       size_t i_1 = 0;
       for (const Json::Value& item_1 : value_1) {
-        if (not item_1.isString()) {
+        if (!item_1.isString()) {
           constexpr auto expected_but_got(
             "Expected a string, but got: ");
 
@@ -601,13 +601,13 @@ void other_class_from(
   // Parse map_of_somes
   ////
 
-  if (not value.isMember("map_of_somes")) {
+  if (!value.isMember("map_of_somes")) {
     errors->add(
       ref,
       "Property is missing: map_of_somes");
   } else {
     const Json::Value& value_3 = value["map_of_somes"];
-    if (not value_3.isObject()) {
+    if (!value_3.isObject()) {
       constexpr auto expected_but_got(
         "Expected an object, but got: ");
 
@@ -623,7 +623,7 @@ void other_class_from(
       std::map<std::string, SomeClass*>& target_3 = target->map_of_somes;
       for (Json::ValueConstIterator it_3 = value_3.begin(); it_3 != value_3.end(); ++it_3) {
         const Json::Value& value_4 = *it_3;
-        if (not value_4.isString()) {
+        if (!value_4.isString()) {
           constexpr auto expected_but_got(
             "Expected a string, but got: ");
 
@@ -724,7 +724,7 @@ Json::Value serialize_some_graph(
     const SomeGraph& some_graph) {
   Json::Value some_graph_as_value;
 
-  if (not some_graph.some_classes.empty()) {
+  if (!some_graph.some_classes.empty()) {
     Json::Value some_classes_as_value;
     for (const auto& kv : some_graph.some_classes) {
       const std::string& id = kv.first;
@@ -754,7 +754,7 @@ Json::Value serialize_some_graph(
     some_graph_as_value["some_classes"] = some_classes_as_value;
   }
 
-  if (not some_graph.other_classes.empty()) {
+  if (!some_graph.other_classes.empty()) {
     Json::Value other_classes_as_value;
     for (const auto& kv : some_graph.other_classes) {
       const std::string& id = kv.first;

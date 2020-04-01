@@ -65,11 +65,11 @@ void some_graph_from(
     throw std::invalid_argument("Unexpected null errors");
   }
 
-  if (not errors->empty()) {
+  if (!errors->empty()) {
     throw std::invalid_argument("Unexpected non-empty errors");
   }
 
-  if (not value.isObject()) {
+  if (!value.isObject()) {
     constexpr auto expected_but_got(
       "Expected an object, but got: ");
 
@@ -87,13 +87,13 @@ void some_graph_from(
   // Parse map_of_embeds
   ////
 
-  if (not value.isMember("map_of_embeds")) {
+  if (!value.isMember("map_of_embeds")) {
     errors->add(
       ref,
       "Property is missing: map_of_embeds");
   } else {
     const Json::Value& value_0 = value["map_of_embeds"];
-    if (not value_0.isObject()) {
+    if (!value_0.isObject()) {
       constexpr auto expected_but_got(
         "Expected an object, but got: ");
 
@@ -134,7 +134,7 @@ void someembed_from(
     std::string ref,
     SomeEmbed* target,
     parse::Errors* errors) {
-  if (not value.isObject()) {
+  if (!value.isObject()) {
     constexpr auto expected_but_got(
       "Expected an object, but got: ");
 
@@ -152,13 +152,13 @@ void someembed_from(
   // Parse some_property
   ////
 
-  if (not value.isMember("some_property")) {
+  if (!value.isMember("some_property")) {
     errors->add(
       ref,
       "Property is missing: some_property");
   } else {
     const Json::Value& value_0 = value["some_property"];
-    if (not value_0.isBool()) {
+    if (!value_0.isBool()) {
       constexpr auto expected_but_got(
         "Expected a bool, but got: ");
 

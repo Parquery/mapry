@@ -26,7 +26,7 @@ def _parse_errors() -> str:
 
         void Errors::add(const std::string& ref, const std::string& message) {
             if (errors_.size() < cap_) {
-                errors_.emplace_back(Error{.ref = ref, .message = message});
+                errors_.emplace_back(Error{ref, message});
             }
         }
 

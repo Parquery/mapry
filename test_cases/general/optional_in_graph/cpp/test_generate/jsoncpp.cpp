@@ -106,7 +106,7 @@ std::chrono::nanoseconds duration_from_string(
   std::smatch mtch;
   const bool matched = std::regex_match(s, mtch, re::kDuration);
 
-  if (not matched) {
+  if (!matched) {
     std::stringstream sserr;
     sserr << "failed to match the duration: " << s;
     *error = sserr.str();
@@ -302,11 +302,11 @@ void some_graph_from(
     throw std::invalid_argument("Unexpected null errors");
   }
 
-  if (not errors->empty()) {
+  if (!errors->empty()) {
     throw std::invalid_argument("Unexpected non-empty errors");
   }
 
-  if (not value.isObject()) {
+  if (!value.isObject()) {
     constexpr auto expected_but_got(
       "Expected an object, but got: ");
 
@@ -331,7 +331,7 @@ void some_graph_from(
 
   if (value.isMember("empties")) {
     const Json::Value& obj = value["empties"];
-    if (not obj.isObject()) {
+    if (!obj.isObject()) {
       constexpr auto expected_but_got(
         "Expected an object, but got: ");
 
@@ -355,7 +355,7 @@ void some_graph_from(
 
   // Pre-allocating class instances is critical.
   // If the pre-allocation failed, we can not continue to parse the instances.
-  if (not errors->empty()) {
+  if (!errors->empty()) {
     return;
   }
 
@@ -408,7 +408,7 @@ void some_graph_from(
   if (value.isMember("optional_array")) {
     target->optional_array.emplace();
     const Json::Value& value_0 = value["optional_array"];
-    if (not value_0.isArray()) {
+    if (!value_0.isArray()) {
       constexpr auto expected_but_got(
         "Expected an array, but got: ");
 
@@ -425,7 +425,7 @@ void some_graph_from(
       target_0.resize(value_0.size());
       size_t i_0 = 0;
       for (const Json::Value& item_0 : value_0) {
-        if (not item_0.isInt64()) {
+        if (!item_0.isInt64()) {
           constexpr auto expected_but_got(
             "Expected an int64, but got: ");
 
@@ -461,7 +461,7 @@ void some_graph_from(
 
   if (value.isMember("optional_boolean")) {
     const Json::Value& value_2 = value["optional_boolean"];
-    if (not value_2.isBool()) {
+    if (!value_2.isBool()) {
       constexpr auto expected_but_got(
         "Expected a bool, but got: ");
 
@@ -487,7 +487,7 @@ void some_graph_from(
 
   if (value.isMember("optional_date")) {
     const Json::Value& value_3 = value["optional_date"];
-    if (not value_3.isString()) {
+    if (!value_3.isString()) {
       constexpr auto expected_but_got(
         "Expected a string, but got: ");
 
@@ -535,7 +535,7 @@ void some_graph_from(
 
   if (value.isMember("optional_datetime")) {
     const Json::Value& value_4 = value["optional_datetime"];
-    if (not value_4.isString()) {
+    if (!value_4.isString()) {
       constexpr auto expected_but_got(
         "Expected a string, but got: ");
 
@@ -583,7 +583,7 @@ void some_graph_from(
 
   if (value.isMember("optional_duration")) {
     const Json::Value& value_5 = value["optional_duration"];
-    if (not value_5.isString()) {
+    if (!value_5.isString()) {
       constexpr auto expected_but_got(
         "Expected a string, but got: ");
 
@@ -601,7 +601,7 @@ void some_graph_from(
       std::chrono::nanoseconds cast_5 = duration_from_string(
         cast_5_str, &error_5);
 
-      if (not error_5.empty()) {
+      if (!error_5.empty()) {
         constexpr auto invalid_duration(
           "Invalid duration: ");
 
@@ -627,7 +627,7 @@ void some_graph_from(
 
   if (value.isMember("optional_float")) {
     const Json::Value& value_6 = value["optional_float"];
-    if (not value_6.isDouble()) {
+    if (!value_6.isDouble()) {
       constexpr auto expected_but_got(
         "Expected a double, but got: ");
 
@@ -653,7 +653,7 @@ void some_graph_from(
 
   if (value.isMember("optional_integer")) {
     const Json::Value& value_7 = value["optional_integer"];
-    if (not value_7.isInt64()) {
+    if (!value_7.isInt64()) {
       constexpr auto expected_but_got(
         "Expected an int64, but got: ");
 
@@ -680,7 +680,7 @@ void some_graph_from(
   if (value.isMember("optional_map")) {
     target->optional_map.emplace();
     const Json::Value& value_8 = value["optional_map"];
-    if (not value_8.isObject()) {
+    if (!value_8.isObject()) {
       constexpr auto expected_but_got(
         "Expected an object, but got: ");
 
@@ -696,7 +696,7 @@ void some_graph_from(
       std::map<std::string, int64_t>& target_8 = *target->optional_map;
       for (Json::ValueConstIterator it_8 = value_8.begin(); it_8 != value_8.end(); ++it_8) {
         const Json::Value& value_9 = *it_8;
-        if (not value_9.isInt64()) {
+        if (!value_9.isInt64()) {
           constexpr auto expected_but_got(
             "Expected an int64, but got: ");
 
@@ -730,7 +730,7 @@ void some_graph_from(
 
   if (value.isMember("optional_path")) {
     const Json::Value& value_10 = value["optional_path"];
-    if (not value_10.isString()) {
+    if (!value_10.isString()) {
       constexpr auto expected_but_got(
         "Expected a string, but got: ");
 
@@ -758,7 +758,7 @@ void some_graph_from(
 
   if (value.isMember("optional_string")) {
     const Json::Value& value_11 = value["optional_string"];
-    if (not value_11.isString()) {
+    if (!value_11.isString()) {
       constexpr auto expected_but_got(
         "Expected a string, but got: ");
 
@@ -784,7 +784,7 @@ void some_graph_from(
 
   if (value.isMember("optional_time")) {
     const Json::Value& value_12 = value["optional_time"];
-    if (not value_12.isString()) {
+    if (!value_12.isString()) {
       constexpr auto expected_but_got(
         "Expected a string, but got: ");
 
@@ -832,7 +832,7 @@ void some_graph_from(
 
   if (value.isMember("optional_time_zone")) {
     const Json::Value& value_13 = value["optional_time_zone"];
-    if (not value_13.isString()) {
+    if (!value_13.isString()) {
       constexpr auto expected_but_got(
         "Expected a string, but got: ");
 
@@ -858,7 +858,7 @@ void some_graph_from(
 
   if (value.isMember("optional_reference")) {
     const Json::Value& value_14 = value["optional_reference"];
-    if (not value_14.isString()) {
+    if (!value_14.isString()) {
       constexpr auto expected_but_got(
         "Expected a string, but got: ");
 
@@ -1028,7 +1028,7 @@ void empty_from(
     std::string ref,
     Empty* target,
     parse::Errors* errors) {
-  if (not value.isObject()) {
+  if (!value.isObject()) {
     constexpr auto expected_but_got(
       "Expected an object, but got: ");
 
@@ -1048,7 +1048,7 @@ void some_embed_from(
     std::string ref,
     SomeEmbed* target,
     parse::Errors* errors) {
-  if (not value.isObject()) {
+  if (!value.isObject()) {
     constexpr auto expected_but_got(
       "Expected an object, but got: ");
 
@@ -1151,7 +1151,7 @@ Json::Value serialize_some_graph(
     some_graph_as_value["optional_embed"] = serialize_some_embed((*some_graph.optional_embed));
   }
 
-  if (not some_graph.empties.empty()) {
+  if (!some_graph.empties.empty()) {
     Json::Value empties_as_value;
     for (const auto& kv : some_graph.empties) {
       const std::string& id = kv.first;

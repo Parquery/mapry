@@ -106,7 +106,7 @@ std::chrono::nanoseconds duration_from_string(
   std::smatch mtch;
   const bool matched = std::regex_match(s, mtch, re::kDuration);
 
-  if (not matched) {
+  if (!matched) {
     std::stringstream sserr;
     sserr << "failed to match the duration: " << s;
     *error = sserr.str();
@@ -302,11 +302,11 @@ void some_graph_from(
     throw std::invalid_argument("Unexpected null errors");
   }
 
-  if (not errors->empty()) {
+  if (!errors->empty()) {
     throw std::invalid_argument("Unexpected non-empty errors");
   }
 
-  if (not value.isObject()) {
+  if (!value.isObject()) {
     constexpr auto expected_but_got(
       "Expected an object, but got: ");
 
@@ -324,13 +324,13 @@ void some_graph_from(
   // Parse some_duration
   ////
 
-  if (not value.isMember("some_duration")) {
+  if (!value.isMember("some_duration")) {
     errors->add(
       ref,
       "Property is missing: some_duration");
   } else {
     const Json::Value& value_0 = value["some_duration"];
-    if (not value_0.isString()) {
+    if (!value_0.isString()) {
       constexpr auto expected_but_got(
         "Expected a string, but got: ");
 
@@ -348,7 +348,7 @@ void some_graph_from(
       std::chrono::nanoseconds cast_0 = duration_from_string(
         cast_0_str, &error_0);
 
-      if (not error_0.empty()) {
+      if (!error_0.empty()) {
         constexpr auto invalid_duration(
           "Invalid duration: ");
 

@@ -65,11 +65,11 @@ void some_graph_from(
     throw std::invalid_argument("Unexpected null errors");
   }
 
-  if (not errors->empty()) {
+  if (!errors->empty()) {
     throw std::invalid_argument("Unexpected non-empty errors");
   }
 
-  if (not value.isObject()) {
+  if (!value.isObject()) {
     constexpr auto expected_but_got(
       "Expected an object, but got: ");
 
@@ -87,7 +87,7 @@ void some_graph_from(
   // Parse some_embed
   ////
 
-  if (not value.isMember("some_embed")) {
+  if (!value.isMember("some_embed")) {
     errors->add(
       ref,
       "Property is missing: some_embed");
@@ -110,7 +110,7 @@ void empty_from(
     std::string ref,
     Empty* target,
     parse::Errors* errors) {
-  if (not value.isObject()) {
+  if (!value.isObject()) {
     constexpr auto expected_but_got(
       "Expected an object, but got: ");
 
@@ -130,7 +130,7 @@ void non_empty_from(
     std::string ref,
     NonEmpty* target,
     parse::Errors* errors) {
-  if (not value.isObject()) {
+  if (!value.isObject()) {
     constexpr auto expected_but_got(
       "Expected an object, but got: ");
 
@@ -148,7 +148,7 @@ void non_empty_from(
   // Parse empty
   ////
 
-  if (not value.isMember("empty")) {
+  if (!value.isMember("empty")) {
     errors->add(
       ref,
       "Property is missing: empty");

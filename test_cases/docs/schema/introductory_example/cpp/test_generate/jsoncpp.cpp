@@ -65,11 +65,11 @@ void pipeline_from(
     throw std::invalid_argument("Unexpected null errors");
   }
 
-  if (not errors->empty()) {
+  if (!errors->empty()) {
     throw std::invalid_argument("Unexpected non-empty errors");
   }
 
-  if (not value.isObject()) {
+  if (!value.isObject()) {
     constexpr auto expected_but_got(
       "Expected an object, but got: ");
 
@@ -94,7 +94,7 @@ void pipeline_from(
 
   if (value.isMember("persons")) {
     const Json::Value& obj = value["persons"];
-    if (not obj.isObject()) {
+    if (!obj.isObject()) {
       constexpr auto expected_but_got(
         "Expected an object, but got: ");
 
@@ -118,7 +118,7 @@ void pipeline_from(
 
   // Pre-allocating class instances is critical.
   // If the pre-allocation failed, we can not continue to parse the instances.
-  if (not errors->empty()) {
+  if (!errors->empty()) {
     return;
   }
 
@@ -168,13 +168,13 @@ void pipeline_from(
   // Parse maintainer
   ////
 
-  if (not value.isMember("maintainer")) {
+  if (!value.isMember("maintainer")) {
     errors->add(
       ref,
       "Property is missing: maintainer");
   } else {
     const Json::Value& value_0 = value["maintainer"];
-    if (not value_0.isString()) {
+    if (!value_0.isString()) {
       constexpr auto expected_but_got(
         "Expected a string, but got: ");
 
@@ -242,7 +242,7 @@ void person_from(
     std::string ref,
     Person* target,
     parse::Errors* errors) {
-  if (not value.isObject()) {
+  if (!value.isObject()) {
     constexpr auto expected_but_got(
       "Expected an object, but got: ");
 
@@ -260,13 +260,13 @@ void person_from(
   // Parse full_name
   ////
 
-  if (not value.isMember("full_name")) {
+  if (!value.isMember("full_name")) {
     errors->add(
       ref,
       "Property is missing: full_name");
   } else {
     const Json::Value& value_0 = value["full_name"];
-    if (not value_0.isString()) {
+    if (!value_0.isString()) {
       constexpr auto expected_but_got(
         "Expected a string, but got: ");
 
@@ -290,13 +290,13 @@ void person_from(
   // Parse birthday
   ////
 
-  if (not value.isMember("birthday")) {
+  if (!value.isMember("birthday")) {
     errors->add(
       ref,
       "Property is missing: birthday");
   } else {
     const Json::Value& value_1 = value["birthday"];
-    if (not value_1.isString()) {
+    if (!value_1.isString()) {
       constexpr auto expected_but_got(
         "Expected a string, but got: ");
 
@@ -342,7 +342,7 @@ void person_from(
   // Parse address
   ////
 
-  if (not value.isMember("address")) {
+  if (!value.isMember("address")) {
     errors->add(
       ref,
       "Property is missing: address");
@@ -365,7 +365,7 @@ void address_from(
     std::string ref,
     Address* target,
     parse::Errors* errors) {
-  if (not value.isObject()) {
+  if (!value.isObject()) {
     constexpr auto expected_but_got(
       "Expected an object, but got: ");
 
@@ -383,13 +383,13 @@ void address_from(
   // Parse text
   ////
 
-  if (not value.isMember("text")) {
+  if (!value.isMember("text")) {
     errors->add(
       ref,
       "Property is missing: text");
   } else {
     const Json::Value& value_0 = value["text"];
-    if (not value_0.isString()) {
+    if (!value_0.isString()) {
       constexpr auto expected_but_got(
         "Expected a string, but got: ");
 
@@ -440,7 +440,7 @@ Json::Value serialize_pipeline(
 
   pipeline_as_value["maintainer"] = pipeline.maintainer->id;
 
-  if (not pipeline.persons.empty()) {
+  if (!pipeline.persons.empty()) {
     Json::Value persons_as_value;
     for (const auto& kv : pipeline.persons) {
       const std::string& id = kv.first;

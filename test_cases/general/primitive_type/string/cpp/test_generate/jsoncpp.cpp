@@ -66,11 +66,11 @@ void some_graph_from(
     throw std::invalid_argument("Unexpected null errors");
   }
 
-  if (not errors->empty()) {
+  if (!errors->empty()) {
     throw std::invalid_argument("Unexpected non-empty errors");
   }
 
-  if (not value.isObject()) {
+  if (!value.isObject()) {
     constexpr auto expected_but_got(
       "Expected an object, but got: ");
 
@@ -88,13 +88,13 @@ void some_graph_from(
   // Parse some_str
   ////
 
-  if (not value.isMember("some_str")) {
+  if (!value.isMember("some_str")) {
     errors->add(
       ref,
       "Property is missing: some_str");
   } else {
     const Json::Value& value_0 = value["some_str"];
-    if (not value_0.isString()) {
+    if (!value_0.isString()) {
       constexpr auto expected_but_got(
         "Expected a string, but got: ");
 
@@ -112,7 +112,7 @@ void some_graph_from(
       const std::string cast_0 = value_0.asString();
       bool ok_0 = true;
 
-      if (not std::regex_match(cast_0, regex_0)) {
+      if (!std::regex_match(cast_0, regex_0)) {
         constexpr auto expected_but_got(
           "Expected to match "
           "^[a-zA-Z]*$"
@@ -141,13 +141,13 @@ void some_graph_from(
   // Parse unconstrained_str
   ////
 
-  if (not value.isMember("unconstrained_str")) {
+  if (!value.isMember("unconstrained_str")) {
     errors->add(
       ref,
       "Property is missing: unconstrained_str");
   } else {
     const Json::Value& value_1 = value["unconstrained_str"];
-    if (not value_1.isString()) {
+    if (!value_1.isString()) {
       constexpr auto expected_but_got(
         "Expected a string, but got: ");
 

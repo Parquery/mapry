@@ -65,11 +65,11 @@ void some_graph_from(
     throw std::invalid_argument("Unexpected null errors");
   }
 
-  if (not errors->empty()) {
+  if (!errors->empty()) {
     throw std::invalid_argument("Unexpected non-empty errors");
   }
 
-  if (not value.isObject()) {
+  if (!value.isObject()) {
     constexpr auto expected_but_got(
       "Expected an object, but got: ");
 
@@ -94,7 +94,7 @@ void some_graph_from(
 
   if (value.isMember("empties")) {
     const Json::Value& obj = value["empties"];
-    if (not obj.isObject()) {
+    if (!obj.isObject()) {
       constexpr auto expected_but_got(
         "Expected an object, but got: ");
 
@@ -118,7 +118,7 @@ void some_graph_from(
 
   // Pre-allocating class instances is critical.
   // If the pre-allocation failed, we can not continue to parse the instances.
-  if (not errors->empty()) {
+  if (!errors->empty()) {
     return;
   }
 
@@ -168,7 +168,7 @@ void some_graph_from(
   // Parse some_embed
   ////
 
-  if (not value.isMember("some_embed")) {
+  if (!value.isMember("some_embed")) {
     errors->add(
       ref,
       "Property is missing: some_embed");
@@ -192,7 +192,7 @@ void empty_from(
     std::string ref,
     Empty* target,
     parse::Errors* errors) {
-  if (not value.isObject()) {
+  if (!value.isObject()) {
     constexpr auto expected_but_got(
       "Expected an object, but got: ");
 
@@ -213,7 +213,7 @@ void embed_with_ref_from(
     std::string ref,
     EmbedWithRef* target,
     parse::Errors* errors) {
-  if (not value.isObject()) {
+  if (!value.isObject()) {
     constexpr auto expected_but_got(
       "Expected an object, but got: ");
 
@@ -231,13 +231,13 @@ void embed_with_ref_from(
   // Parse reference_to_empty
   ////
 
-  if (not value.isMember("reference_to_empty")) {
+  if (!value.isMember("reference_to_empty")) {
     errors->add(
       ref,
       "Property is missing: reference_to_empty");
   } else {
     const Json::Value& value_0 = value["reference_to_empty"];
-    if (not value_0.isString()) {
+    if (!value_0.isString()) {
       constexpr auto expected_but_got(
         "Expected a string, but got: ");
 
@@ -294,7 +294,7 @@ Json::Value serialize_some_graph(
 
   some_graph_as_value["some_embed"] = serialize_embed_with_ref(some_graph.some_embed);
 
-  if (not some_graph.empties.empty()) {
+  if (!some_graph.empties.empty()) {
     Json::Value empties_as_value;
     for (const auto& kv : some_graph.empties) {
       const std::string& id = kv.first;

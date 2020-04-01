@@ -66,11 +66,11 @@ void some_graph_from(
     throw std::invalid_argument("Unexpected null errors");
   }
 
-  if (not errors->empty()) {
+  if (!errors->empty()) {
     throw std::invalid_argument("Unexpected non-empty errors");
   }
 
-  if (not value.isObject()) {
+  if (!value.isObject()) {
     constexpr auto expected_but_got(
       "Expected an object, but got: ");
 
@@ -88,13 +88,13 @@ void some_graph_from(
   // Parse map_of_strings
   ////
 
-  if (not value.isMember("map_of_strings")) {
+  if (!value.isMember("map_of_strings")) {
     errors->add(
       ref,
       "Property is missing: map_of_strings");
   } else {
     const Json::Value& value_0 = value["map_of_strings"];
-    if (not value_0.isObject()) {
+    if (!value_0.isObject()) {
       constexpr auto expected_but_got(
         "Expected an object, but got: ");
 
@@ -110,7 +110,7 @@ void some_graph_from(
       std::map<std::string, std::string>& target_0 = target->map_of_strings;
       for (Json::ValueConstIterator it_0 = value_0.begin(); it_0 != value_0.end(); ++it_0) {
         const Json::Value& value_1 = *it_0;
-        if (not value_1.isString()) {
+        if (!value_1.isString()) {
           constexpr auto expected_but_got(
             "Expected a string, but got: ");
 
@@ -130,7 +130,7 @@ void some_graph_from(
           const std::string cast_1 = value_1.asString();
           bool ok_1 = true;
 
-          if (not std::regex_match(cast_1, regex_1)) {
+          if (!std::regex_match(cast_1, regex_1)) {
             constexpr auto expected_but_got(
               "Expected to match "
               "^hello.*$"

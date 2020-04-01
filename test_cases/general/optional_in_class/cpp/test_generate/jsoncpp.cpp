@@ -65,11 +65,11 @@ void some_graph_from(
     throw std::invalid_argument("Unexpected null errors");
   }
 
-  if (not errors->empty()) {
+  if (!errors->empty()) {
     throw std::invalid_argument("Unexpected non-empty errors");
   }
 
-  if (not value.isObject()) {
+  if (!value.isObject()) {
     constexpr auto expected_but_got(
       "Expected an object, but got: ");
 
@@ -94,7 +94,7 @@ void some_graph_from(
 
   if (value.isMember("with_optionals")) {
     const Json::Value& obj = value["with_optionals"];
-    if (not obj.isObject()) {
+    if (!obj.isObject()) {
       constexpr auto expected_but_got(
         "Expected an object, but got: ");
 
@@ -118,7 +118,7 @@ void some_graph_from(
 
   // Pre-allocating class instances is critical.
   // If the pre-allocation failed, we can not continue to parse the instances.
-  if (not errors->empty()) {
+  if (!errors->empty()) {
     return;
   }
 
@@ -170,7 +170,7 @@ void with_optional_from(
     std::string ref,
     WithOptional* target,
     parse::Errors* errors) {
-  if (not value.isObject()) {
+  if (!value.isObject()) {
     constexpr auto expected_but_got(
       "Expected an object, but got: ");
 
@@ -190,7 +190,7 @@ void with_optional_from(
 
   if (value.isMember("some_text")) {
     const Json::Value& value_0 = value["some_text"];
-    if (not value_0.isString()) {
+    if (!value_0.isString()) {
       constexpr auto expected_but_got(
         "Expected a string, but got: ");
 
@@ -226,7 +226,7 @@ Json::Value serialize_some_graph(
     const SomeGraph& some_graph) {
   Json::Value some_graph_as_value;
 
-  if (not some_graph.with_optionals.empty()) {
+  if (!some_graph.with_optionals.empty()) {
     Json::Value with_optionals_as_value;
     for (const auto& kv : some_graph.with_optionals) {
       const std::string& id = kv.first;

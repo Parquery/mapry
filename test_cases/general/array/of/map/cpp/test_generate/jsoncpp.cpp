@@ -65,11 +65,11 @@ void some_graph_from(
     throw std::invalid_argument("Unexpected null errors");
   }
 
-  if (not errors->empty()) {
+  if (!errors->empty()) {
     throw std::invalid_argument("Unexpected non-empty errors");
   }
 
-  if (not value.isObject()) {
+  if (!value.isObject()) {
     constexpr auto expected_but_got(
       "Expected an object, but got: ");
 
@@ -87,13 +87,13 @@ void some_graph_from(
   // Parse array_of_maps
   ////
 
-  if (not value.isMember("array_of_maps")) {
+  if (!value.isMember("array_of_maps")) {
     errors->add(
       ref,
       "Property is missing: array_of_maps");
   } else {
     const Json::Value& value_0 = value["array_of_maps"];
-    if (not value_0.isArray()) {
+    if (!value_0.isArray()) {
       constexpr auto expected_but_got(
         "Expected an array, but got: ");
 
@@ -110,7 +110,7 @@ void some_graph_from(
       target_0.resize(value_0.size());
       size_t i_0 = 0;
       for (const Json::Value& item_0 : value_0) {
-        if (not item_0.isObject()) {
+        if (!item_0.isObject()) {
           constexpr auto expected_but_got(
             "Expected an object, but got: ");
 
@@ -128,7 +128,7 @@ void some_graph_from(
           std::map<std::string, bool>& target_1 = target_0.at(i_0);
           for (Json::ValueConstIterator it_1 = item_0.begin(); it_1 != item_0.end(); ++it_1) {
             const Json::Value& value_2 = *it_1;
-            if (not value_2.isBool()) {
+            if (!value_2.isBool()) {
               constexpr auto expected_but_got(
                 "Expected a bool, but got: ");
 

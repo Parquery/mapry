@@ -65,11 +65,11 @@ void some_graph_from(
     throw std::invalid_argument("Unexpected null errors");
   }
 
-  if (not errors->empty()) {
+  if (!errors->empty()) {
     throw std::invalid_argument("Unexpected non-empty errors");
   }
 
-  if (not value.isObject()) {
+  if (!value.isObject()) {
     constexpr auto expected_but_got(
       "Expected an object, but got: ");
 
@@ -87,13 +87,13 @@ void some_graph_from(
   // Parse map_of_integers
   ////
 
-  if (not value.isMember("map_of_integers")) {
+  if (!value.isMember("map_of_integers")) {
     errors->add(
       ref,
       "Property is missing: map_of_integers");
   } else {
     const Json::Value& value_0 = value["map_of_integers"];
-    if (not value_0.isObject()) {
+    if (!value_0.isObject()) {
       constexpr auto expected_but_got(
         "Expected an object, but got: ");
 
@@ -109,7 +109,7 @@ void some_graph_from(
       std::map<std::string, int64_t>& target_0 = target->map_of_integers;
       for (Json::ValueConstIterator it_0 = value_0.begin(); it_0 != value_0.end(); ++it_0) {
         const Json::Value& value_1 = *it_0;
-        if (not value_1.isInt64()) {
+        if (!value_1.isInt64()) {
           constexpr auto expected_but_got(
             "Expected an int64, but got: ");
 

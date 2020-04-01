@@ -65,11 +65,11 @@ void some_graph_from(
     throw std::invalid_argument("Unexpected null errors");
   }
 
-  if (not errors->empty()) {
+  if (!errors->empty()) {
     throw std::invalid_argument("Unexpected non-empty errors");
   }
 
-  if (not value.isObject()) {
+  if (!value.isObject()) {
     constexpr auto expected_but_got(
       "Expected an object, but got: ");
 
@@ -87,13 +87,13 @@ void some_graph_from(
   // Parse some_float_gt_0_lt_100
   ////
 
-  if (not value.isMember("some_float_gt_0_lt_100")) {
+  if (!value.isMember("some_float_gt_0_lt_100")) {
     errors->add(
       ref,
       "Property is missing: some_float_gt_0_lt_100");
   } else {
     const Json::Value& value_0 = value["some_float_gt_0_lt_100"];
-    if (not value_0.isDouble()) {
+    if (!value_0.isDouble()) {
       constexpr auto expected_but_got(
         "Expected a double, but got: ");
 
@@ -109,7 +109,7 @@ void some_graph_from(
       const auto cast_0 = value_0.asDouble();
       bool ok_0 = true;
 
-      if (not (cast_0 > 0)) {
+      if (!(cast_0 > 0)) {
         constexpr auto expected_but_got(
           "Expected "
           "> 0.000000"
@@ -125,7 +125,7 @@ void some_graph_from(
         ok_0 = false;
       }
 
-      if (not (cast_0 < 100)) {
+      if (!(cast_0 < 100)) {
         constexpr auto expected_but_got(
           "Expected "
           "< 100.000000"
@@ -154,13 +154,13 @@ void some_graph_from(
   // Parse some_float_ge_0_le_100
   ////
 
-  if (not value.isMember("some_float_ge_0_le_100")) {
+  if (!value.isMember("some_float_ge_0_le_100")) {
     errors->add(
       ref,
       "Property is missing: some_float_ge_0_le_100");
   } else {
     const Json::Value& value_1 = value["some_float_ge_0_le_100"];
-    if (not value_1.isDouble()) {
+    if (!value_1.isDouble()) {
       constexpr auto expected_but_got(
         "Expected a double, but got: ");
 
@@ -176,7 +176,7 @@ void some_graph_from(
       const auto cast_1 = value_1.asDouble();
       bool ok_1 = true;
 
-      if (not (cast_1 >= 0)) {
+      if (!(cast_1 >= 0)) {
         constexpr auto expected_but_got(
           "Expected "
           ">= 0.000000"
@@ -192,7 +192,7 @@ void some_graph_from(
         ok_1 = false;
       }
 
-      if (not (cast_1 <= 100)) {
+      if (!(cast_1 <= 100)) {
         constexpr auto expected_but_got(
           "Expected "
           "<= 100.000000"
@@ -221,13 +221,13 @@ void some_graph_from(
   // Parse unconstrained_float
   ////
 
-  if (not value.isMember("unconstrained_float")) {
+  if (!value.isMember("unconstrained_float")) {
     errors->add(
       ref,
       "Property is missing: unconstrained_float");
   } else {
     const Json::Value& value_2 = value["unconstrained_float"];
-    if (not value_2.isDouble()) {
+    if (!value_2.isDouble()) {
       constexpr auto expected_but_got(
         "Expected a double, but got: ");
 

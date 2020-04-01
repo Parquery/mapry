@@ -65,11 +65,11 @@ void some_graph_from(
     throw std::invalid_argument("Unexpected null errors");
   }
 
-  if (not errors->empty()) {
+  if (!errors->empty()) {
     throw std::invalid_argument("Unexpected non-empty errors");
   }
 
-  if (not value.isObject()) {
+  if (!value.isObject()) {
     constexpr auto expected_but_got(
       "Expected an object, but got: ");
 
@@ -94,7 +94,7 @@ void some_graph_from(
 
   if (value.isMember("empties")) {
     const Json::Value& obj = value["empties"];
-    if (not obj.isObject()) {
+    if (!obj.isObject()) {
       constexpr auto expected_but_got(
         "Expected an object, but got: ");
 
@@ -118,7 +118,7 @@ void some_graph_from(
 
   // Pre-allocating class instances is critical.
   // If the pre-allocation failed, we can not continue to parse the instances.
-  if (not errors->empty()) {
+  if (!errors->empty()) {
     return;
   }
 
@@ -168,13 +168,13 @@ void some_graph_from(
   // Parse map_of_class_refs
   ////
 
-  if (not value.isMember("map_of_class_refs")) {
+  if (!value.isMember("map_of_class_refs")) {
     errors->add(
       ref,
       "Property is missing: map_of_class_refs");
   } else {
     const Json::Value& value_0 = value["map_of_class_refs"];
-    if (not value_0.isObject()) {
+    if (!value_0.isObject()) {
       constexpr auto expected_but_got(
         "Expected an object, but got: ");
 
@@ -190,7 +190,7 @@ void some_graph_from(
       std::map<std::string, Empty*>& target_0 = target->map_of_class_refs;
       for (Json::ValueConstIterator it_0 = value_0.begin(); it_0 != value_0.end(); ++it_0) {
         const Json::Value& value_1 = *it_0;
-        if (not value_1.isString()) {
+        if (!value_1.isString()) {
           constexpr auto expected_but_got(
             "Expected a string, but got: ");
 
@@ -242,7 +242,7 @@ void empty_from(
     std::string ref,
     Empty* target,
     parse::Errors* errors) {
-  if (not value.isObject()) {
+  if (!value.isObject()) {
     constexpr auto expected_but_got(
       "Expected an object, but got: ");
 
@@ -273,7 +273,7 @@ Json::Value serialize_some_graph(
   }
   some_graph_as_value["map_of_class_refs"] = std::move(target_0);
 
-  if (not some_graph.empties.empty()) {
+  if (!some_graph.empties.empty()) {
     Json::Value empties_as_value;
     for (const auto& kv : some_graph.empties) {
       const std::string& id = kv.first;

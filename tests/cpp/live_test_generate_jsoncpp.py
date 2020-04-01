@@ -148,7 +148,7 @@ def generate_case_cmake(executable_name: str) -> str:
         target_link_libraries({executable_name}
             CONAN_PKG::jsoncpp
             CONAN_PKG::boost
-            CONAN_PKG::date)
+            tz)
         '''.format(executable_name=executable_name))
 
 
@@ -161,11 +161,14 @@ include(conan.cmake)
 conan_cmake_run(REQUIRES
     jsoncpp/1.8.4@theirix/stable
     boost/1.66.0@conan/stable
-    date/2.4.1@bincrafters/stable
     BASIC_SETUP CMAKE_TARGETS
     BUILD missing)
 
-include_directories({{ include_dir }})
+include_directories({{ test_dependencies_dir }}/cpp/optional/include)
+
+set(USE_SYSTEM_TZ_DB ON CACHE BOOL
+    "use System time zone database to avoid curl dependency")
+add_subdirectory({{ test_dependencies_dir }}/cpp/date-2.4.1 date-2.4.1)
 
 {% for test_rel_path in test_rel_paths %}
 add_subdirectory({{ test_rel_path }})
@@ -176,7 +179,7 @@ add_subdirectory({{ test_rel_path }})
 
 @icontract.ensure(lambda result: result.endswith('\n'))
 def generate_main_cmake(
-        include_dir: pathlib.Path,
+        test_dependencies_dir: pathlib.Path,
         test_rel_paths: Sequence[pathlib.Path]) -> str:
     """
     Generate the main CMakeLists.txt file.
@@ -184,8 +187,8 @@ def generate_main_cmake(
     This file defines all the dependencies and includes the subdirectories
     corresponding to the test cases.
 
-    :param include_dir:
-        path to the directory to include header-only third-party dependencies
+    :param test_dependencies_dir:
+        path to the directory which contains third-party dependencies
         such as std::experimental::optional.
     :param test_rel_paths:
         relative paths to the subdirectories where source code of the test cases
@@ -193,7 +196,8 @@ def generate_main_cmake(
     :return: generated cmake code
     """
     return _CMAKE_MAIN_TPL.render(
-        include_dir=include_dir, test_rel_paths=test_rel_paths)
+        test_dependencies_dir=test_dependencies_dir,
+        test_rel_paths=test_rel_paths)
 
 
 class Case:
@@ -478,13 +482,11 @@ def main() -> None:
         (src_dir / "conan.cmake").write_text(
             (this_dir / "conan.cmake").read_text())
 
-        (base_operation_dir.path / "include").mkdir(exist_ok=True)
-        (base_operation_dir.path / "include" / "optional.hpp").write_text(
-            (this_dir / "optional.hpp").read_text())
+        test_dependencies_dir = this_dir.parent.parent / "test_dependencies"
 
         (src_dir / "CMakeLists.txt").write_text(
             generate_main_cmake(
-                include_dir=(base_operation_dir.path / "include"),
+                test_dependencies_dir=test_dependencies_dir,
                 test_rel_paths=[case.rel_path for case in cases]))
 
         ##

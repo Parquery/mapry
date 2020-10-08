@@ -5,7 +5,7 @@ __description__ = (
     'Generate polyglot code for de/serializing object graphs '
     'from JSONable structures.')
 __url__ = 'http://github.com/Parquery/mapry'
-__version__ = '1.0.0.2'
+__version__ = '1.0.0.3'
 __author__ = 'Marko Ristin'
 __author_email__ = 'marko.ristin@gmail.com'
 __license__ = 'MIT'

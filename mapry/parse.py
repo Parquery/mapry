@@ -385,8 +385,7 @@ def schema_from_json_file(path: pathlib.Path) -> mapry.Schema:
 
         try:
             obj = json.load(fp=fid, object_pairs_hook=_OrderedDictPP)
-            return schema_from_mapping(
-                mapping=obj, ref='{}#'.format(path.as_posix()))
+            return schema_from_mapping(mapping=obj, ref='{}#'.format(str(path)))
         except json.JSONDecodeError as err:
             jsonerr = err
 

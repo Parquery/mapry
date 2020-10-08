@@ -210,6 +210,7 @@ class Case:
             for example_path in example_paths),
         "Necessary since we need to re-use the test identifier "
         "for the example and the schemas")
+    @icontract.require(lambda rel_path: not rel_path.is_absolute())
     # yapf: enable
     def __init__(
             self, schema_path: pathlib.Path,
@@ -230,7 +231,7 @@ class Case:
         self.rel_path = rel_path
 
         self.executable_name = "{}_parse_serialize".format(
-            rel_path.as_posix().replace("/", "_"))
+            '_'.join(rel_path.parts))
 
 
 class Params:
@@ -348,8 +349,8 @@ def execute_case(case: Case, bin_dir: pathlib.Path) -> None:
 
         # yapf: disable
         proc = subprocess.Popen(
-            [(bin_dir / case.executable_name).as_posix(),
-             example_pth.as_posix()],
+            [str(bin_dir / case.executable_name),
+             str(example_pth)],
             stdout=subprocess.PIPE, stderr=subprocess.PIPE,
             universal_newlines=True)
         # yapf: enable
@@ -499,8 +500,8 @@ def main() -> None:
 
         build_dir.mkdir(exist_ok=True)
         subprocess.check_call(['cmake', '../src', '-DCMAKE_BUILD_TYPE=Debug'],
-                              cwd=build_dir.as_posix())
-        subprocess.check_call(['make', 'all'], cwd=build_dir.as_posix())
+                              cwd=str(build_dir))
+        subprocess.check_call(['make', 'all'], cwd=str(build_dir))
 
         ##
         # Run

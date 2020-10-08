@@ -38,19 +38,19 @@ def main() -> int:
         subprocess.check_call([
             "yapf", "--in-place", "--style=style.yapf", "--recursive",
             "tests", "mapry", "setup.py", "precommit.py"],
-            cwd=repo_root.as_posix())
+            cwd=str(repo_root))
         # yapf: enable
     else:
         # yapf: disable
         subprocess.check_call([
             "yapf", "--diff", "--style=style.yapf", "--recursive",
             "tests", "mapry", "setup.py", "precommit.py"],
-            cwd=repo_root.as_posix())
+            cwd=str(repo_root))
         # yapf: enable
 
     print("Mypy'ing...")
     subprocess.check_call(["mypy", "--strict", "mapry", "tests"],
-                          cwd=repo_root.as_posix())
+                          cwd=str(repo_root))
 
     print("Isort'ing...")
     # yapf: disable
@@ -86,11 +86,11 @@ def main() -> int:
         subprocess.check_call(cmd)
 
     print("Pydocstyle'ing...")
-    subprocess.check_call(["pydocstyle", "mapry"], cwd=repo_root.as_posix())
+    subprocess.check_call(["pydocstyle", "mapry"], cwd=str(repo_root))
 
     print("Pylint'ing...")
     subprocess.check_call(["pylint", "--rcfile=pylint.rc", "tests", "mapry"],
-                          cwd=repo_root.as_posix())
+                          cwd=str(repo_root))
 
     print("Testing...")
     env = os.environ.copy()
@@ -101,7 +101,7 @@ def main() -> int:
         ["coverage", "run",
          "--source", "mapry",
          "-m", "unittest", "discover", "tests"],
-        cwd=repo_root.as_posix(),
+        cwd=str(repo_root),
         env=env)
     # yapf: enable
 
@@ -109,21 +109,21 @@ def main() -> int:
 
     print("Doctesting...")
     subprocess.check_call(
-        ["python3", "-m", "doctest", (repo_root / "README.rst").as_posix()])
+        [sys.executable, "-m", "doctest",
+         str(repo_root / "README.rst")])
 
     for pth in sorted((repo_root / "mapry").glob("**/*.py")):
-        subprocess.check_call(["python3", "-m", "doctest", pth.as_posix()])
+        subprocess.check_call([sys.executable, "-m", "doctest", str(pth)])
 
     print("pyicontract-lint'ing...")
     for pth in sorted((repo_root / "mapry").glob("**/*.py")):
-        subprocess.check_call(["pyicontract-lint", pth.as_posix()])
+        subprocess.check_call(["pyicontract-lint", str(pth)])
 
     print("Checking with twine ...")
-    subprocess.check_call(["python3", "setup.py", "sdist"],
-                          cwd=repo_root.as_posix())
+    subprocess.check_call([sys.executable, "setup.py", "sdist"],
+                          cwd=str(repo_root))
 
-    subprocess.check_call(["twine", "check", "dist/*"],
-                          cwd=repo_root.as_posix())
+    subprocess.check_call(["twine", "check", "dist/*"], cwd=str(repo_root))
 
     return 0
 

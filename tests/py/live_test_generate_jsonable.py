@@ -6,6 +6,7 @@ import json
 import os
 import pathlib
 import subprocess
+import sys
 from typing import Any, Sequence
 
 import icontract
@@ -226,13 +227,13 @@ def execute_case(case: Case, case_src_dir: pathlib.Path) -> None:
     ##
 
     say("Mypy'ing the generated filies in {} ...".format(case_src_dir))
-    subprocess.check_call(['mypy', '--strict', case_src_dir.as_posix()])
+    subprocess.check_call(['mypy', '--strict', str(case_src_dir)])
 
     say("doctest'ing the generated filies in {} ...".format(case_src_dir))
     for pth in sorted(case_src_dir.glob("**/*.py")):
-        subprocess.check_call(['python3', '-m', 'doctest',
-                               pth.as_posix()],
-                              cwd=case_src_dir.as_posix())
+        subprocess.check_call([sys.executable, '-m', 'doctest',
+                               str(pth)],
+                              cwd=str(case_src_dir))
 
     ##
     # Execute
@@ -252,12 +253,12 @@ def execute_case(case: Case, case_src_dir: pathlib.Path) -> None:
 
         env = os.environ.copy()
         env['PYTHONPATH'] = '{}:{}'.format(
-            os.environ.get('PYTHONPATH', ''), case_src_dir.as_posix())
+            os.environ.get('PYTHONPATH', ''), str(case_src_dir))
 
         # yapf: disable
         proc = subprocess.Popen(
-            [(module_dir / 'parse_serialize.py').as_posix(),
-             '--path', example_pth.as_posix()],
+            [str(module_dir / 'parse_serialize.py'),
+             '--path', str(example_pth)],
             stdout=subprocess.PIPE, stderr=subprocess.PIPE,
             env=env,
             universal_newlines=True)

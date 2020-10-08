@@ -46,8 +46,8 @@ setup(
         'dev': [
             'coverage>=4.5.1,<5',
             'pydocstyle>=3.0.0,<4',
-            'mypy==0.670',
-            'pylint==2.3.0',
+            'mypy==0.782',
+            'pylint==2.6.0',
             'yapf==0.27.0',
             'temppathlib>=1.0.3,<2',
             'isort>=4.3.4,<5',

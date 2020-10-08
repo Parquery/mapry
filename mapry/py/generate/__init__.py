@@ -152,8 +152,7 @@ def order_by_optional(properties: Mapping[str, mapry.Property]
     :param properties: properties of a composite
     :return: list of properties sorted stable by ``optional`` attribute
     """
-    return sorted([prop for prop in properties.values()],
-                  key=lambda prop: prop.optional)
+    return sorted(properties.values(), key=lambda prop: prop.optional)
 
 
 class AutoID:

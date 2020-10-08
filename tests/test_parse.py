@@ -13,35 +13,32 @@ import tests.path
 
 class TestSchema(unittest.TestCase):
     def test_schema_from_invalid_mapping(self) -> None:  # pylint: disable=invalid-name
-        # Test with list
-        with tempfile.NamedTemporaryFile() as tmpfile:
-            tmpfile.file.write('[]'.encode())  # type: ignore
-            tmpfile.file.flush()  # type: ignore
+        with tempfile.TemporaryDirectory() as tmpdir:
+            # Test with list
+            tmpfile = pathlib.Path(tmpdir) / "test-schema-with-list.yml"
+            tmpfile.write_text('[]')
 
             try:
-                mapry.parse.schema_from_json_file(
-                    path=pathlib.Path(tmpfile.name))
+                mapry.parse.schema_from_json_file(path=tmpfile)
             except mapry.validation.SchemaError as err:
                 self.assertEqual((
                     "{}#: Does not follow json schema: "
-                    "[] is not of type 'object'").format(tmpfile.name),
-                                 str(err))
+                    "[] is not of type 'object'").format(tmpfile), str(err))
 
-        # Test with name as object instead of string
-        with tempfile.NamedTemporaryFile() as tmpfile:
-            tmpfile.file.write(  # type: ignore
+            # Test with name as object instead of string
+            tmpfile = pathlib.Path(tmpdir) / "name-as-object.yml"
+
+            tmpfile.write_text(
                 '{"name": {"unexpected": "value"}, '
-                '"description": "some description."}'.encode())
-            tmpfile.file.flush()  # type: ignore
+                '"description": "some description."}')
 
             try:
-                mapry.parse.schema_from_json_file(
-                    path=pathlib.Path(tmpfile.name))
+                mapry.parse.schema_from_json_file(path=tmpfile)
             except mapry.validation.SchemaError as err:
                 self.assertEqual(
                     str(err), "{}#/name: Does not follow json schema: "
                     "{{'unexpected': 'value'}} is not of type 'string'".format(
-                        tmpfile.name))
+                        tmpfile))
 
     def test_cases(self) -> None:  # pylint: disable=no-self-use
         cases_dir = tests.path.REPO_DIR / 'test_cases' / 'general'

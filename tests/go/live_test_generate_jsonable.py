@@ -246,7 +246,7 @@ def execute_case(case: Case, gopath: pathlib.Path) -> None:
     (src_dir / "parse_serialize" / "main.go").chmod(mode=0o755)
 
     env = os.environ.copy()
-    env['GOPATH'] = gopath.as_posix()
+    env['GOPATH'] = str(gopath)
 
     ##
     # Validate
@@ -254,7 +254,7 @@ def execute_case(case: Case, gopath: pathlib.Path) -> None:
 
     say("go vet'ing the generated filies in {} ...".format(gopath))
     subprocess.check_call(['go', 'vet', '.'],
-                          cwd=(src_dir / "parse_serialize").as_posix(),
+                          cwd=str(src_dir / "parse_serialize"),
                           env=env)
 
     ##
@@ -263,7 +263,7 @@ def execute_case(case: Case, gopath: pathlib.Path) -> None:
 
     say("go build'ing {} ...".format(gopath))
     subprocess.check_call(['go', 'build', '.'],
-                          cwd=(src_dir / "parse_serialize").as_posix(),
+                          cwd=str(src_dir / "parse_serialize"),
                           env=env)
 
     ##
@@ -284,10 +284,8 @@ def execute_case(case: Case, gopath: pathlib.Path) -> None:
 
         # yapf: disable
         proc = subprocess.Popen(
-            [(
-                gopath / 'src' / 'parse_serialize' / 'parse_serialize'
-             ).as_posix(),
-             '-path', example_pth.as_posix()],
+            [str(gopath / 'src' / 'parse_serialize' / 'parse_serialize'),
+             '-path', str(example_pth)],
             stdout=subprocess.PIPE, stderr=subprocess.PIPE,
             universal_newlines=True)
         # yapf: enable

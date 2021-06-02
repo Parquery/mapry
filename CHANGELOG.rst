@@ -1,3 +1,8 @@
+1.0.0.4
+=======
+* Dropped support for Python 3.5 (#61)
+* Added entry point to ``setup.py`` (#59)
+
 1.0.0.3
 =======
 * Added support for Python 3.7 and 3.8

@@ -113,6 +113,11 @@ def main() -> int:
          str(repo_root / "README.rst")])
 
     for pth in sorted((repo_root / "mapry").glob("**/*.py")):
+        # ``__main__.py``'s cause doctest to go banana, so we need to skip them;
+        # see https://stackoverflow.com/questions/58731519/doctest-fails-on-main-py
+        if pth.name == '__main__.py':
+            continue
+
         subprocess.check_call([sys.executable, "-m", "doctest", str(pth)])
 
     print("pyicontract-lint'ing...")

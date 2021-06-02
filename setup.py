@@ -73,5 +73,5 @@ setup(
         # yapf: enable
     },
     py_modules=['mapry', 'mapry_meta'],
-    scripts=['bin/mapry-to'],
+    entry_points={"console_scripts": ["mapry-to = mapry.main:entry_point"]},
     package_data={"mapry": ["py.typed"]})

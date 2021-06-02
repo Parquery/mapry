@@ -190,9 +190,20 @@ def generate_py(schema: mapry.Schema, outdir: pathlib.Path) -> int:
     return 0
 
 
-def main() -> int:
-    """Execute the main routine."""
+def run(prog: str) -> int:
+    """
+    Execute the main routine.
+
+    :param prog:
+        name of the program as it will be executed.
+
+        This differs between "mapry-to" (as a console script) and
+        "mapry" (as a Python module executed from ``__main__.py``)
+
+    :return: exit code
+    """
     parser = argparse.ArgumentParser(
+        prog=prog,
         description="Generate the code for de/serialization of object graphs "
         "from JSONables.")
     subparsers = parser.add_subparsers(
@@ -261,3 +272,8 @@ def main() -> int:
         return generate_py(schema=schema, outdir=outdir)
     else:
         raise NotImplementedError('command: {}'.format(command))
+
+
+def entry_point() -> int:
+    """Provide the entry point as the console script."""
+    return run(prog="mapry-to")
